@@ -95,7 +95,10 @@ function StatCard({
         {prefix}
         {count}
       </div>
-      <div className="text-sm text-muted-foreground font-body uppercase tracking-widest">
+      <div
+        className="text-sm font-body uppercase tracking-widest"
+        style={{ color: "oklch(0.75 0.05 265)" }}
+      >
         {label}
       </div>
     </div>
@@ -103,14 +106,16 @@ function StatCard({
 }
 
 /* ================================================================
-   Section Header
+   Section Header — light variant (white bg, dark text)
    ================================================================ */
 function SectionHeader({
   title,
   subtitle,
+  light = false,
 }: {
   title: string;
   subtitle?: string;
+  light?: boolean;
 }) {
   return (
     <div className="text-center mb-12 md:mb-16 fade-up">
@@ -118,7 +123,9 @@ function SectionHeader({
         {title}
       </h2>
       {subtitle && (
-        <p className="text-muted-foreground text-lg max-w-2xl mx-auto font-body">
+        <p
+          className={`text-lg max-w-2xl mx-auto font-body ${light ? "text-white/70" : "text-muted-foreground"}`}
+        >
           {subtitle}
         </p>
       )}
@@ -181,7 +188,10 @@ function TrainingModal({
 }) {
   return (
     <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className="glass-card border-0 max-w-md">
+      <DialogContent
+        className="bg-white border border-border max-w-md"
+        data-ocid="training.modal"
+      >
         <DialogHeader>
           <DialogTitle className="font-display text-2xl gradient-text-gold">
             Master TraderX Training
@@ -190,10 +200,17 @@ function TrainingModal({
         <div className="space-y-4 py-2">
           <div
             className="flex items-center gap-3 p-4 rounded-lg"
-            style={{ background: "oklch(0.18 0.04 263 / 0.6)" }}
+            style={{
+              background: "oklch(0.93 0.04 245 / 0.8)",
+              border: "1px solid oklch(0.75 0.12 245 / 0.4)",
+              color: "oklch(0.22 0.09 265)",
+            }}
           >
-            <span className="text-gold-bright shrink-0 text-xl">👉</span>
-            <p className="text-foreground font-body font-semibold">
+            <span className="shrink-0 text-xl">👉</span>
+            <p
+              className="font-body font-semibold"
+              style={{ color: "oklch(0.22 0.09 265)" }}
+            >
               Open the FYERS account to access the MasterTraderX Inner Circle
             </p>
           </div>
@@ -202,6 +219,7 @@ function TrainingModal({
             target="_blank"
             rel="noopener noreferrer"
             className="block btn-gold rounded-lg px-6 py-3 text-sm font-display font-semibold w-full text-center"
+            data-ocid="training.primary_button"
           >
             Get Started
           </a>
@@ -209,7 +227,9 @@ function TrainingModal({
             href="https://signup.fyers.in/?utm_source=AP-Leads&utm_medium=AP0218"
             target="_blank"
             rel="noopener noreferrer"
-            className="block text-center text-sm font-body text-gold-bright underline underline-offset-2 hover:text-yellow-300 transition-colors"
+            className="block text-center text-sm font-body underline underline-offset-2 transition-colors"
+            style={{ color: "oklch(0.45 0.22 245)" }}
+            data-ocid="training.secondary_button"
           >
             Click here to open your free trading &amp; demat account
           </a>
@@ -351,18 +371,30 @@ export default function App() {
       {/* ============================================================
           STICKY HEADER
           ============================================================ */}
-      <header className="fixed top-0 left-0 right-0 z-50 glass-card border-b border-border/40">
+      <header
+        className="fixed top-0 left-0 right-0 z-50"
+        style={{
+          background: "oklch(0.99 0.002 250 / 0.95)",
+          backdropFilter: "blur(16px)",
+          borderBottom: "1px solid oklch(0.88 0.04 265 / 0.3)",
+          boxShadow: "0 1px 16px oklch(0.4 0.08 265 / 0.06)",
+        }}
+      >
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           {/* Logo */}
           <button
             type="button"
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
             className="flex items-center gap-2 group cursor-pointer"
+            data-ocid="nav.link"
           >
             <div className="w-8 h-8 rounded-lg bg-gold flex items-center justify-center">
-              <TrendingUp size={18} className="text-background" />
+              <TrendingUp
+                size={18}
+                style={{ color: "oklch(0.99 0.002 250)" }}
+              />
             </div>
-            <span className="font-display font-black text-xl">
+            <span className="font-display font-black text-xl text-foreground">
               Master<span className="text-gold">TraderX</span>
             </span>
           </button>
@@ -378,6 +410,7 @@ export default function App() {
                     .getElementById("about")
                     ?.scrollIntoView({ behavior: "smooth" })
                 }
+                data-ocid="nav.about.link"
               >
                 About
               </button>
@@ -389,6 +422,7 @@ export default function App() {
                     .getElementById("learn")
                     ?.scrollIntoView({ behavior: "smooth" })
                 }
+                data-ocid="nav.curriculum.link"
               >
                 Curriculum
               </button>
@@ -396,6 +430,7 @@ export default function App() {
                 type="button"
                 className="hover:text-gold transition-colors"
                 onClick={scrollToStart}
+                data-ocid="nav.program.link"
               >
                 Program
               </button>
@@ -404,6 +439,7 @@ export default function App() {
               type="button"
               onClick={openModal}
               className="btn-gold rounded-lg px-5 py-2.5 text-sm font-display font-bold"
+              data-ocid="header.primary_button"
             >
               Begin Training
             </button>
@@ -414,6 +450,7 @@ export default function App() {
             type="button"
             onClick={() => setMobileMenuOpen((v) => !v)}
             className="md:hidden btn-gold rounded-lg px-4 py-2 text-sm font-display font-bold"
+            data-ocid="header.mobile.primary_button"
           >
             Begin Training
           </button>
@@ -422,26 +459,28 @@ export default function App() {
 
       <main>
         {/* ============================================================
-            HERO SECTION
+            HERO SECTION — White background
             ============================================================ */}
-        <section className="relative min-h-screen flex flex-col justify-center pt-20 overflow-hidden">
-          {/* Background */}
-          <div className="absolute inset-0 z-0">
-            <img
-              src="/assets/generated/hero-banner.dim_1200x600.jpg"
-              alt=""
-              className="w-full h-full object-cover"
-              loading="eager"
-            />
-            <div className="absolute inset-0 bg-gradient-to-b from-background via-background/97 to-background" />
-            <div className="absolute inset-0 bg-background/70" />
+        <section className="relative min-h-screen flex flex-col justify-center pt-20 overflow-hidden bg-background">
+          {/* Subtle gold grid pattern */}
+          <div className="absolute inset-0 z-0 pointer-events-none">
             <div
-              className="absolute inset-0 opacity-10"
+              className="absolute inset-0 opacity-30"
               style={{
                 backgroundImage:
-                  "linear-gradient(oklch(0.72 0.17 65 / 0.1) 1px, transparent 1px), linear-gradient(90deg, oklch(0.72 0.17 65 / 0.1) 1px, transparent 1px)",
+                  "linear-gradient(oklch(0.72 0.17 65 / 0.07) 1px, transparent 1px), linear-gradient(90deg, oklch(0.72 0.17 65 / 0.07) 1px, transparent 1px)",
                 backgroundSize: "60px 60px",
               }}
+            />
+            {/* Soft gold radial glow top-right */}
+            <div
+              className="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full blur-3xl pointer-events-none"
+              style={{ background: "oklch(0.72 0.17 65 / 0.06)" }}
+            />
+            {/* Soft blue glow bottom-left */}
+            <div
+              className="absolute -bottom-40 -left-40 w-[500px] h-[500px] rounded-full blur-3xl pointer-events-none"
+              style={{ background: "oklch(0.55 0.22 245 / 0.05)" }}
             />
           </div>
 
@@ -451,9 +490,9 @@ export default function App() {
               <div
                 className="fade-up inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-body font-semibold uppercase tracking-widest mb-8"
                 style={{
-                  background: "oklch(0.72 0.17 65 / 0.15)",
+                  background: "oklch(0.72 0.17 65 / 0.12)",
                   border: "1px solid oklch(0.72 0.17 65 / 0.3)",
-                  color: "oklch(0.82 0.19 75)",
+                  color: "oklch(0.55 0.14 60)",
                 }}
               >
                 <Award size={14} />
@@ -480,7 +519,7 @@ export default function App() {
               {/* YouTube Video Embed */}
               <div
                 className="fade-up delay-3 w-full max-w-3xl mx-auto mb-10 rounded-2xl overflow-hidden shadow-2xl"
-                style={{ border: "1px solid oklch(0.7 0.15 85 / 0.3)" }}
+                style={{ border: "1px solid oklch(0.72 0.17 65 / 0.4)" }}
               >
                 <div
                   className="relative w-full"
@@ -499,22 +538,32 @@ export default function App() {
 
               {/* Disclaimer badge */}
               <div
-                className="fade-up delay-3 inline-flex flex-wrap items-center justify-center gap-x-4 gap-y-2 px-6 py-3 rounded-full mb-10 text-xs font-body text-muted-foreground"
+                className="fade-up delay-3 inline-flex flex-wrap items-center justify-center gap-x-4 gap-y-2 px-6 py-3 rounded-full mb-10 text-xs font-body"
                 style={{
-                  background: "oklch(0.16 0.035 263 / 0.7)",
-                  border: "1px solid oklch(0.3 0.04 263 / 0.5)",
+                  background: "oklch(0.93 0.04 245 / 0.8)",
+                  border: "1px solid oklch(0.75 0.12 245 / 0.4)",
+                  color: "oklch(0.25 0.1 265)",
                 }}
               >
                 <span className="flex items-center gap-1.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-brand inline-block" />
+                  <span
+                    className="w-1.5 h-1.5 rounded-full inline-block"
+                    style={{ background: "oklch(0.55 0.22 245)" }}
+                  />
                   Educational initiative
                 </span>
                 <span className="flex items-center gap-1.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-brand inline-block" />
+                  <span
+                    className="w-1.5 h-1.5 rounded-full inline-block"
+                    style={{ background: "oklch(0.55 0.22 245)" }}
+                  />
                   No profit guarantees
                 </span>
                 <span className="flex items-center gap-1.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-brand inline-block" />
+                  <span
+                    className="w-1.5 h-1.5 rounded-full inline-block"
+                    style={{ background: "oklch(0.55 0.22 245)" }}
+                  />
                   No trade recommendations
                 </span>
               </div>
@@ -527,7 +576,11 @@ export default function App() {
 
               {/* CTA */}
               <div className="fade-up delay-5">
-                <CTAButton size="lg" onClick={openModal}>
+                <CTAButton
+                  size="lg"
+                  onClick={openModal}
+                  data-ocid="hero.primary_button"
+                >
                   <Play size={20} />
                   Begin the Master TraderX Training
                 </CTAButton>
@@ -543,14 +596,14 @@ export default function App() {
         </section>
 
         {/* ============================================================
-            STATS BAR
+            STATS BAR — Deep Blue
             ============================================================ */}
         <section
           ref={statsRef}
           className="py-16 relative"
           style={{
             background:
-              "linear-gradient(135deg, oklch(0.13 0.04 262), oklch(0.15 0.045 265))",
+              "linear-gradient(135deg, oklch(0.22 0.08 265), oklch(0.28 0.12 255))",
           }}
         >
           <div className="container mx-auto px-4">
@@ -589,9 +642,9 @@ export default function App() {
         </section>
 
         {/* ============================================================
-            WHY MASTER TRADERX EXISTS
+            WHY MASTER TRADERX EXISTS — White background
             ============================================================ */}
-        <section className="py-20 md:py-28">
+        <section className="py-20 md:py-28 bg-background">
           <div className="container mx-auto px-4">
             <SectionHeader
               title="Why Master TraderX Exists"
@@ -662,18 +715,18 @@ export default function App() {
         </section>
 
         {/* ============================================================
-            ABOUT KIRTI AGRAWAL
+            ABOUT KIRTI AGRAWAL — Deep Blue
             ============================================================ */}
         <section
           id="about"
           className="py-20 md:py-28 relative"
           style={{
             background:
-              "linear-gradient(135deg, oklch(0.13 0.04 262), oklch(0.15 0.045 265))",
+              "linear-gradient(135deg, oklch(0.22 0.08 265), oklch(0.28 0.12 255))",
           }}
         >
           <div className="container mx-auto px-4">
-            <SectionHeader title="About Kirti Agrawal" />
+            <SectionHeader title="About Kirti Agrawal" light />
 
             <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start max-w-6xl mx-auto">
               {/* Left — image + achievement cards */}
@@ -716,7 +769,10 @@ export default function App() {
                       <div className="text-xl font-display font-black gradient-text-gold">
                         {item.value}
                       </div>
-                      <div className="text-xs text-muted-foreground mt-1">
+                      <div
+                        className="text-xs mt-1"
+                        style={{ color: "oklch(0.75 0.05 265)" }}
+                      >
                         {item.label}
                       </div>
                     </div>
@@ -724,8 +780,17 @@ export default function App() {
                 </div>
 
                 {/* Featured on */}
-                <div className="glass-card rounded-xl p-5">
-                  <p className="text-xs uppercase tracking-widest text-muted-foreground font-body mb-3">
+                <div
+                  className="rounded-xl p-5"
+                  style={{
+                    background: "oklch(0.30 0.08 265 / 0.7)",
+                    border: "1px solid oklch(0.40 0.10 265 / 0.5)",
+                  }}
+                >
+                  <p
+                    className="text-xs uppercase tracking-widest font-body mb-3"
+                    style={{ color: "oklch(0.72 0.17 65)" }}
+                  >
                     Featured on
                   </p>
                   <div className="flex flex-wrap gap-2">
@@ -738,10 +803,11 @@ export default function App() {
                     ].map((name) => (
                       <span
                         key={name}
-                        className="px-3 py-1.5 rounded-full text-xs font-body font-semibold text-muted-foreground"
+                        className="px-3 py-1.5 rounded-full text-xs font-body font-semibold"
                         style={{
-                          background: "oklch(0.22 0.04 263 / 0.8)",
-                          border: "1px solid oklch(0.32 0.05 263 / 0.6)",
+                          background: "oklch(0.35 0.1 265 / 0.8)",
+                          border: "1px solid oklch(0.45 0.12 265 / 0.5)",
+                          color: "white",
                         }}
                       >
                         {name}
@@ -751,8 +817,17 @@ export default function App() {
                 </div>
 
                 {/* Also worked with */}
-                <div className="glass-card rounded-xl p-5">
-                  <p className="text-xs uppercase tracking-widest text-muted-foreground font-body mb-3">
+                <div
+                  className="rounded-xl p-5"
+                  style={{
+                    background: "oklch(0.30 0.08 265 / 0.7)",
+                    border: "1px solid oklch(0.40 0.10 265 / 0.5)",
+                  }}
+                >
+                  <p
+                    className="text-xs uppercase tracking-widest font-body mb-3"
+                    style={{ color: "oklch(0.72 0.17 65)" }}
+                  >
                     Also worked with
                   </p>
                   <div className="flex flex-wrap gap-2">
@@ -765,10 +840,11 @@ export default function App() {
                     ].map((name) => (
                       <span
                         key={name}
-                        className="px-3 py-1.5 rounded-full text-xs font-body font-semibold text-muted-foreground"
+                        className="px-3 py-1.5 rounded-full text-xs font-body font-semibold"
                         style={{
-                          background: "oklch(0.22 0.04 263 / 0.8)",
-                          border: "1px solid oklch(0.32 0.05 263 / 0.6)",
+                          background: "oklch(0.35 0.1 265 / 0.8)",
+                          border: "1px solid oklch(0.45 0.12 265 / 0.5)",
+                          color: "white",
                         }}
                       >
                         {name}
@@ -784,14 +860,14 @@ export default function App() {
                   <Badge
                     className="mb-4 text-xs font-body font-semibold px-3 py-1 rounded-full"
                     style={{
-                      background: "oklch(0.72 0.17 65 / 0.15)",
+                      background: "oklch(0.72 0.17 65 / 0.2)",
                       color: "oklch(0.82 0.19 75)",
-                      border: "1px solid oklch(0.72 0.17 65 / 0.3)",
+                      border: "1px solid oklch(0.72 0.17 65 / 0.4)",
                     }}
                   >
                     Full-Time Trader & Educator
                   </Badge>
-                  <p className="text-foreground/90 font-body text-lg leading-relaxed mb-4">
+                  <p className="text-white/90 font-body text-lg leading-relaxed mb-4">
                     Kirti Agrawal is a full-time trader, trading educator, and
                     market mentor with over{" "}
                     <strong className="text-gold">
@@ -799,12 +875,12 @@ export default function App() {
                     </strong>{" "}
                     in Indian equity markets.
                   </p>
-                  <p className="text-muted-foreground font-body leading-relaxed">
+                  <p className="text-white/70 font-body leading-relaxed">
                     After struggling for nearly eight years and experiencing
                     losses of close to{" "}
-                    <strong className="text-foreground/80">₹20 lakhs</strong>,
-                    Kirti rebuilt her trading approach through discipline,
-                    psychology, and structured systems.
+                    <strong className="text-white/90">₹20 lakhs</strong>, Kirti
+                    rebuilt her trading approach through discipline, psychology,
+                    and structured systems.
                   </p>
                 </div>
 
@@ -815,20 +891,18 @@ export default function App() {
                     <div
                       key={item.text}
                       className="flex items-start gap-4 p-4 rounded-xl"
-                      style={{ background: "oklch(0.18 0.04 263 / 0.5)" }}
+                      style={{ background: "oklch(0.32 0.1 265 / 0.6)" }}
                     >
                       <div className="text-gold shrink-0 mt-0.5">
                         {item.icon}
                       </div>
-                      <p className="text-foreground/80 font-body">
-                        {item.text}
-                      </p>
+                      <p className="text-white/80 font-body">{item.text}</p>
                     </div>
                   ))}
                 </div>
 
                 <blockquote className="border-l-4 border-gold pl-6 py-2">
-                  <p className="text-foreground/90 font-serif italic text-lg leading-relaxed">
+                  <p className="text-white/90 font-serif italic text-lg leading-relaxed">
                     "Master TraderX represents the distillation of her
                     real-market experience into a structured learning
                     initiative."
@@ -840,9 +914,9 @@ export default function App() {
         </section>
 
         {/* ============================================================
-            WHAT YOU WILL LEARN
+            WHAT YOU WILL LEARN — White background
             ============================================================ */}
-        <section id="learn" className="py-20 md:py-28">
+        <section id="learn" className="py-20 md:py-28 bg-background">
           <div className="container mx-auto px-4">
             <SectionHeader
               title="What You Will Learn"
@@ -882,17 +956,17 @@ export default function App() {
         </section>
 
         {/* ============================================================
-            THREE PILLARS
+            THREE PILLARS — Deep Blue
             ============================================================ */}
         <section
           className="py-20 md:py-28 relative"
           style={{
             background:
-              "linear-gradient(135deg, oklch(0.13 0.04 262), oklch(0.15 0.045 265))",
+              "linear-gradient(135deg, oklch(0.22 0.08 265), oklch(0.28 0.12 255))",
           }}
         >
           <div className="container mx-auto px-4">
-            <SectionHeader title="The Three Pillars of Master TraderX" />
+            <SectionHeader title="The Three Pillars of Master TraderX" light />
 
             <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto mb-10">
               {[
@@ -917,13 +991,17 @@ export default function App() {
               ].map((pillar) => (
                 <div
                   key={pillar.title}
-                  className={`glass-card rounded-2xl p-8 text-center fade-up ${pillar.delay} group hover:border-gold/30 transition-all duration-300`}
+                  className={`rounded-2xl p-8 text-center fade-up ${pillar.delay} group hover:border-gold/30 transition-all duration-300`}
+                  style={{
+                    background: "oklch(0.30 0.08 265 / 0.6)",
+                    border: "1px solid oklch(0.45 0.12 265 / 0.4)",
+                  }}
                 >
                   <div
                     className="w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300"
                     style={{
-                      background: "oklch(0.72 0.17 65 / 0.1)",
-                      border: "1px solid oklch(0.72 0.17 65 / 0.2)",
+                      background: "oklch(0.72 0.17 65 / 0.15)",
+                      border: "1px solid oklch(0.72 0.17 65 / 0.3)",
                     }}
                   >
                     {pillar.icon}
@@ -931,7 +1009,7 @@ export default function App() {
                   <h3 className="font-display font-bold text-xl gradient-text-gold mb-3">
                     {pillar.title}
                   </h3>
-                  <p className="text-muted-foreground font-body leading-relaxed">
+                  <p className="text-white/70 font-body leading-relaxed">
                     {pillar.desc}
                   </p>
                 </div>
@@ -948,9 +1026,9 @@ export default function App() {
         </section>
 
         {/* ============================================================
-            PAT FRAMEWORK
+            PAT FRAMEWORK — White background
             ============================================================ */}
-        <section className="py-20 md:py-28">
+        <section className="py-20 md:py-28 bg-background">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto">
               <div
@@ -960,7 +1038,7 @@ export default function App() {
                 {/* Decorative glow */}
                 <div
                   className="absolute top-0 right-0 w-64 h-64 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"
-                  style={{ background: "oklch(0.72 0.17 65 / 0.08)" }}
+                  style={{ background: "oklch(0.72 0.17 65 / 0.06)" }}
                 />
 
                 <div className="relative z-10">
@@ -968,9 +1046,9 @@ export default function App() {
                     <div
                       className="px-4 py-1.5 rounded-full text-sm font-display font-bold"
                       style={{
-                        background: "oklch(0.72 0.17 65 / 0.15)",
-                        border: "1px solid oklch(0.72 0.17 65 / 0.4)",
-                        color: "oklch(0.82 0.19 75)",
+                        background: "oklch(0.72 0.17 65 / 0.12)",
+                        border: "1px solid oklch(0.72 0.17 65 / 0.35)",
+                        color: "oklch(0.55 0.14 60)",
                       }}
                     >
                       Framework
@@ -992,7 +1070,7 @@ export default function App() {
                       <div
                         key={item}
                         className={`flex items-center gap-3 p-4 rounded-xl fade-up delay-${(i % 4) + 1}`}
-                        style={{ background: "oklch(0.18 0.04 263 / 0.6)" }}
+                        style={{ background: "oklch(0.93 0.04 265 / 0.5)" }}
                       >
                         <span className="w-2 h-2 rounded-full bg-gold shrink-0" />
                         <span className="text-foreground/85 font-body">
@@ -1018,32 +1096,35 @@ export default function App() {
         </section>
 
         {/* ============================================================
-            PROGRAM STRUCTURE
+            PROGRAM STRUCTURE — Deep Blue
             ============================================================ */}
         <section
           id="start"
           className="py-20 md:py-28 relative"
           style={{
             background:
-              "linear-gradient(135deg, oklch(0.13 0.04 262), oklch(0.15 0.045 265))",
+              "linear-gradient(135deg, oklch(0.22 0.08 265), oklch(0.28 0.12 255))",
           }}
         >
           <div className="container mx-auto px-4">
-            <SectionHeader title="Program Structure" />
+            <SectionHeader title="Program Structure" light />
 
             <div className="text-center mb-10 fade-up">
               <div
                 className="inline-flex items-center gap-3 px-6 py-3 rounded-full"
                 style={{
-                  background: "oklch(0.18 0.04 263 / 0.8)",
-                  border: "1px solid oklch(0.35 0.05 263 / 0.4)",
+                  background: "oklch(0.30 0.08 265 / 0.8)",
+                  border: "1px solid oklch(0.42 0.10 265 / 0.5)",
                 }}
               >
-                <span className="text-muted-foreground font-body text-sm">
+                <span className="text-white/70 font-body text-sm">
                   ⏱ ~8 Hours Total
                 </span>
-                <span className="w-px h-4 bg-border" />
-                <span className="text-muted-foreground font-body text-sm">
+                <span
+                  className="w-px h-4"
+                  style={{ background: "oklch(0.45 0.10 265)" }}
+                />
+                <span className="text-white/70 font-body text-sm">
                   🎓 Self-paced recorded learning
                 </span>
               </div>
@@ -1053,14 +1134,20 @@ export default function App() {
               {modules.map((mod, i) => (
                 <div
                   key={mod.num}
-                  className={`module-card rounded-xl p-5 md:p-6 flex items-center justify-between gap-4 fade-up delay-${i + 1}`}
+                  className={`rounded-xl p-5 md:p-6 flex items-center justify-between gap-4 fade-up delay-${i + 1}`}
+                  style={{
+                    background: "oklch(0.30 0.08 265 / 0.8)",
+                    border: "1px solid oklch(0.42 0.10 265 / 0.5)",
+                    transition: "all 0.3s ease",
+                  }}
+                  data-ocid={`program.item.${i + 1}`}
                 >
                   <div className="flex items-center gap-5">
-                    <span className="text-3xl font-display font-black text-gold opacity-50 shrink-0 w-10">
+                    <span className="text-3xl font-display font-black text-gold opacity-70 shrink-0 w-10">
                       {mod.num}
                     </span>
                     <div>
-                      <h3 className="font-display font-bold text-foreground/95">
+                      <h3 className="font-display font-bold text-white/95">
                         {mod.title}
                       </h3>
                     </div>
@@ -1069,6 +1156,11 @@ export default function App() {
                     type="button"
                     onClick={openModal}
                     className="btn-gold-outline rounded-lg px-4 py-2 text-sm font-display font-semibold shrink-0 whitespace-nowrap flex items-center gap-1.5"
+                    style={{
+                      color: "oklch(0.82 0.19 75)",
+                      borderColor: "oklch(0.72 0.17 65 / 0.6)",
+                    }}
+                    data-ocid={`program.button.${i + 1}`}
                   >
                     Go to Module <ChevronRight size={14} />
                   </button>
@@ -1079,9 +1171,9 @@ export default function App() {
         </section>
 
         {/* ============================================================
-            FOR / NOT FOR
+            FOR / NOT FOR — White background
             ============================================================ */}
-        <section className="py-20 md:py-28">
+        <section className="py-20 md:py-28 bg-background">
           <div className="container mx-auto px-4">
             <SectionHeader title="Is This Initiative For You?" />
 
@@ -1089,12 +1181,12 @@ export default function App() {
               {/* FOR */}
               <div
                 className="glass-card rounded-2xl p-8 fade-up delay-1"
-                style={{ border: "1px solid oklch(0.62 0.18 240 / 0.3)" }}
+                style={{ border: "1px solid oklch(0.55 0.22 245 / 0.3)" }}
               >
                 <h3 className="font-display font-bold text-xl mb-6 flex items-center gap-3">
                   <div
                     className="w-8 h-8 rounded-full flex items-center justify-center"
-                    style={{ background: "oklch(0.62 0.18 240 / 0.2)" }}
+                    style={{ background: "oklch(0.55 0.22 245 / 0.15)" }}
                   >
                     <CheckCircle2 size={18} className="text-emerald-brand" />
                   </div>
@@ -1129,7 +1221,7 @@ export default function App() {
                 <h3 className="font-display font-bold text-xl mb-6 flex items-center gap-3">
                   <div
                     className="w-8 h-8 rounded-full flex items-center justify-center"
-                    style={{ background: "oklch(0.55 0.22 25 / 0.2)" }}
+                    style={{ background: "oklch(0.55 0.22 25 / 0.15)" }}
                   >
                     <XCircle
                       size={18}
@@ -1165,26 +1257,33 @@ export default function App() {
         </section>
 
         {/* ============================================================
-            TESTIMONIALS
+            TESTIMONIALS — Deep Blue
             ============================================================ */}
         <section
           className="py-20 md:py-28 relative"
           style={{
             background:
-              "linear-gradient(135deg, oklch(0.13 0.04 262), oklch(0.15 0.045 265))",
+              "linear-gradient(135deg, oklch(0.22 0.08 265), oklch(0.28 0.12 255))",
           }}
         >
           <div className="container mx-auto px-4">
             <SectionHeader
               title="What Traders Say"
               subtitle="About the Master TraderX Approach"
+              light
             />
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 mb-12">
               {testimonials.map((t, i) => (
                 <div
                   key={t.name}
-                  className={`testimonial-card rounded-2xl p-6 fade-up delay-${(i % 4) + 1}`}
+                  className={`rounded-2xl p-6 fade-up delay-${(i % 4) + 1}`}
+                  style={{
+                    background: "oklch(0.28 0.08 265 / 0.9)",
+                    border: "1px solid oklch(0.40 0.10 265 / 0.5)",
+                    transition: "all 0.3s ease",
+                  }}
+                  data-ocid={`testimonials.item.${i + 1}`}
                 >
                   {/* Stars */}
                   <div className="flex gap-1 mb-4">
@@ -1197,27 +1296,33 @@ export default function App() {
                     ))}
                   </div>
                   {/* Quote */}
-                  <p className="text-foreground/85 font-body leading-relaxed mb-5 text-sm italic">
+                  <p className="text-white/85 font-body leading-relaxed mb-5 text-sm italic">
                     "{t.quote}"
                   </p>
                   {/* Name */}
                   <div
                     className="flex items-center gap-3 pt-4"
                     style={{
-                      borderTop: "1px solid oklch(0.3 0.04 263 / 0.4)",
+                      borderTop: "1px solid oklch(0.42 0.08 265 / 0.4)",
                     }}
                   >
                     <div
-                      className="w-9 h-9 rounded-full flex items-center justify-center text-sm font-display font-bold text-background"
-                      style={{ background: "oklch(0.72 0.17 65 / 0.8)" }}
+                      className="w-9 h-9 rounded-full flex items-center justify-center text-sm font-display font-bold"
+                      style={{
+                        background: "oklch(0.72 0.17 65 / 0.8)",
+                        color: "oklch(0.15 0.04 265)",
+                      }}
                     >
                       {t.name[0]}
                     </div>
                     <div>
-                      <p className="font-display font-semibold text-sm text-foreground">
+                      <p className="font-display font-semibold text-sm text-white">
                         {t.name}
                       </p>
-                      <p className="text-xs text-muted-foreground font-body">
+                      <p
+                        className="text-xs font-body"
+                        style={{ color: "oklch(0.75 0.05 265)" }}
+                      >
                         {t.role}
                       </p>
                     </div>
@@ -1236,22 +1341,30 @@ export default function App() {
         </section>
 
         {/* ============================================================
-            FINAL CTA
+            FINAL CTA — Deep Blue with gold glow
             ============================================================ */}
         <section
           className="py-24 md:py-36 relative overflow-hidden"
           style={{
             background:
-              "linear-gradient(135deg, oklch(0.1 0.03 262), oklch(0.14 0.045 265), oklch(0.1 0.03 262))",
+              "linear-gradient(135deg, oklch(0.18 0.07 265), oklch(0.25 0.10 265), oklch(0.18 0.07 265))",
           }}
         >
           {/* Background glow */}
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
             <div
               className="w-96 h-96 rounded-full blur-3xl"
-              style={{ background: "oklch(0.72 0.17 65 / 0.1)" }}
+              style={{ background: "oklch(0.72 0.17 65 / 0.12)" }}
             />
           </div>
+          {/* Yellow accent strip top */}
+          <div
+            className="absolute top-0 left-0 right-0 h-1"
+            style={{
+              background:
+                "linear-gradient(90deg, oklch(0.72 0.17 65), oklch(0.88 0.18 88), oklch(0.72 0.17 65))",
+            }}
+          />
           {/* Grid */}
           <div
             className="absolute inset-0 opacity-5"
@@ -1267,8 +1380,8 @@ export default function App() {
               <div
                 className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-body font-semibold uppercase tracking-widest mb-8"
                 style={{
-                  background: "oklch(0.72 0.17 65 / 0.15)",
-                  border: "1px solid oklch(0.72 0.17 65 / 0.3)",
+                  background: "oklch(0.72 0.17 65 / 0.2)",
+                  border: "1px solid oklch(0.72 0.17 65 / 0.4)",
                   color: "oklch(0.82 0.19 75)",
                 }}
               >
@@ -1280,13 +1393,14 @@ export default function App() {
                 <br />
                 Trading Foundation?
               </h2>
-              <p className="text-foreground/70 font-body text-xl mb-10 leading-relaxed">
+              <p className="text-white/70 font-body text-xl mb-10 leading-relaxed">
                 Join thousands of Indian traders learning the right way.
               </p>
               <CTAButton
                 size="lg"
                 onClick={openModal}
                 className="animate-pulse-gold"
+                data-ocid="cta.primary_button"
               >
                 <Play size={22} />
                 Begin the Master TraderX Training
@@ -1297,13 +1411,13 @@ export default function App() {
       </main>
 
       {/* ============================================================
-          FOOTER
+          FOOTER — Dark Navy
           ============================================================ */}
       <footer
         className="py-12 relative"
         style={{
-          background: "oklch(0.1 0.03 262)",
-          borderTop: "1px solid oklch(0.22 0.04 263 / 0.6)",
+          background: "oklch(0.14 0.06 265)",
+          borderTop: "1px solid oklch(0.28 0.08 265 / 0.6)",
         }}
       >
         <div className="container mx-auto px-4">
@@ -1313,17 +1427,24 @@ export default function App() {
               type="button"
               onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
               className="flex items-center gap-2 cursor-pointer"
+              data-ocid="footer.link"
             >
               <div className="w-8 h-8 rounded-lg bg-gold flex items-center justify-center">
-                <TrendingUp size={18} className="text-background" />
+                <TrendingUp
+                  size={18}
+                  style={{ color: "oklch(0.15 0.04 265)" }}
+                />
               </div>
-              <span className="font-display font-black text-xl">
+              <span className="font-display font-black text-xl text-white">
                 Master<span className="text-gold">TraderX</span>
               </span>
             </button>
 
             {/* Disclaimer */}
-            <p className="text-muted-foreground font-body text-sm max-w-2xl leading-relaxed">
+            <p
+              className="font-body text-sm max-w-2xl leading-relaxed"
+              style={{ color: "oklch(0.65 0.04 265)" }}
+            >
               Master TraderX is a free educational initiative. All content is
               for learning purposes only. This is not financial advice. No
               profit guarantees are made. Trading in financial markets involves
@@ -1333,7 +1454,10 @@ export default function App() {
             <div className="section-divider w-full" />
 
             {/* Copyright */}
-            <div className="flex flex-col sm:flex-row items-center gap-2 text-xs text-muted-foreground font-body">
+            <div
+              className="flex flex-col sm:flex-row items-center gap-2 text-xs font-body"
+              style={{ color: "oklch(0.60 0.04 265)" }}
+            >
               <span>
                 © {new Date().getFullYear()} Master TraderX by Kirti Agrawal.
                 All rights reserved.
@@ -1342,6 +1466,68 @@ export default function App() {
           </div>
         </div>
       </footer>
+
+      {/* Floating WhatsApp Button */}
+      <a
+        href="https://wa.me/919827140374"
+        target="_blank"
+        rel="noopener noreferrer"
+        data-ocid="whatsapp.button"
+        style={{
+          position: "fixed",
+          bottom: "24px",
+          right: "24px",
+          zIndex: 9999,
+          width: "56px",
+          height: "56px",
+          borderRadius: "50%",
+          backgroundColor: "#25D366",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          boxShadow: "0 4px 16px rgba(37, 211, 102, 0.45)",
+          transition: "transform 0.2s ease, box-shadow 0.2s ease",
+          textDecoration: "none",
+        }}
+        onMouseEnter={(e) => {
+          (e.currentTarget as HTMLAnchorElement).style.transform =
+            "scale(1.12)";
+          (e.currentTarget as HTMLAnchorElement).style.boxShadow =
+            "0 8px 24px rgba(37, 211, 102, 0.6)";
+        }}
+        onMouseLeave={(e) => {
+          (e.currentTarget as HTMLAnchorElement).style.transform = "scale(1)";
+          (e.currentTarget as HTMLAnchorElement).style.boxShadow =
+            "0 4px 16px rgba(37, 211, 102, 0.45)";
+        }}
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="white"
+          width="30"
+          height="30"
+          role="img"
+          aria-label="WhatsApp"
+        >
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+        </svg>
+        <span
+          style={{
+            position: "absolute",
+            width: "1px",
+            height: "1px",
+            padding: 0,
+            margin: "-1px",
+            overflow: "hidden",
+            clip: "rect(0,0,0,0)",
+            whiteSpace: "nowrap",
+            borderWidth: 0,
+          }}
+        >
+          Chat on WhatsApp
+        </span>
+      </a>
     </div>
   );
 }

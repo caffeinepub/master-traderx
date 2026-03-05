@@ -4,7 +4,7 @@
 
 /* ================================================================
    Master TraderX — Design System
-   Dark premium financial theme: Deep Blue + Gold + Yellow + White
+   Light theme: White background + Gold + Blue + Yellow accents
    ================================================================ */
 
 /* Bricolage Grotesque — Display font */
@@ -40,65 +40,64 @@
   :root {
     --radius: 0.75rem;
 
-    /* Deep blue base */
-    --background: 0.12 0.04 262;
-    --foreground: 0.97 0.005 250;
+    /* White base */
+    --background: 0.99 0.002 250;
+    --foreground: 0.15 0.04 265;
 
     /* Card surfaces */
-    --card: 0.16 0.035 263;
-    --card-foreground: 0.97 0.005 250;
+    --card: 0.97 0.005 255;
+    --card-foreground: 0.15 0.04 265;
 
-    --popover: 0.18 0.04 263;
-    --popover-foreground: 0.97 0.005 250;
+    --popover: 0.99 0.002 250;
+    --popover-foreground: 0.15 0.04 265;
 
     /* Gold primary */
     --primary: 0.72 0.17 65;
-    --primary-foreground: 0.1 0.01 262;
+    --primary-foreground: 0.99 0.002 250;
 
-    /* Muted blue */
-    --secondary: 0.2 0.04 263;
-    --secondary-foreground: 0.88 0.01 250;
+    /* Light blue secondary */
+    --secondary: 0.93 0.04 245;
+    --secondary-foreground: 0.25 0.08 265;
 
-    --muted: 0.18 0.03 263;
-    --muted-foreground: 0.72 0.025 255;
+    --muted: 0.94 0.02 255;
+    --muted-foreground: 0.48 0.04 265;
 
     /* Blue accent */
-    --accent: 0.6 0.18 240;
-    --accent-foreground: 0.97 0.005 250;
+    --accent: 0.55 0.22 245;
+    --accent-foreground: 0.99 0.002 250;
 
     --destructive: 0.55 0.22 25;
-    --destructive-foreground: 0.985 0 0;
+    --destructive-foreground: 0.99 0 0;
 
-    --border: 0.28 0.04 262;
-    --input: 0.22 0.04 262;
+    --border: 0.88 0.03 260;
+    --input: 0.92 0.02 260;
     --ring: 0.72 0.17 65;
 
     /* Chart colors */
     --chart-1: 0.72 0.17 65;
-    --chart-2: 0.6 0.18 240;
-    --chart-3: 0.55 0.22 25;
-    --chart-4: 0.65 0.15 220;
-    --chart-5: 0.8 0.12 90;
+    --chart-2: 0.55 0.22 245;
+    --chart-3: 0.8 0.18 85;
+    --chart-4: 0.45 0.18 220;
+    --chart-5: 0.65 0.15 90;
 
-    --sidebar: 0.14 0.035 263;
-    --sidebar-foreground: 0.97 0.005 250;
+    --sidebar: 0.97 0.005 255;
+    --sidebar-foreground: 0.15 0.04 265;
     --sidebar-primary: 0.72 0.17 65;
-    --sidebar-primary-foreground: 0.1 0.01 262;
-    --sidebar-accent: 0.2 0.04 263;
-    --sidebar-accent-foreground: 0.88 0.01 250;
-    --sidebar-border: 0.28 0.04 262;
+    --sidebar-primary-foreground: 0.99 0.002 250;
+    --sidebar-accent: 0.93 0.04 245;
+    --sidebar-accent-foreground: 0.25 0.08 265;
+    --sidebar-border: 0.88 0.03 260;
     --sidebar-ring: 0.72 0.17 65;
 
     /* Custom brand tokens */
     --gold: 0.72 0.17 65;
     --gold-bright: 0.82 0.19 75;
     --gold-dim: 0.55 0.13 65;
-    --blue-accent: 0.62 0.18 240;
-    --navy-deep: 0.1 0.03 262;
-    --navy-base: 0.12 0.04 262;
-    --navy-surface: 0.16 0.035 263;
-    --navy-card: 0.2 0.04 263;
-    --navy-muted: 0.26 0.04 262;
+    --yellow-accent: 0.88 0.18 88;
+    --blue-accent: 0.45 0.22 245;
+    --blue-light: 0.65 0.18 240;
+    --navy-deep: 0.22 0.09 265;
+    --navy-base: 0.28 0.1 265;
   }
 
   * {
@@ -106,7 +105,7 @@
   }
 
   html {
-    color-scheme: dark;
+    color-scheme: light;
     scroll-behavior: smooth;
   }
 
@@ -169,38 +168,33 @@
 .gradient-text-gold {
   background: linear-gradient(
     135deg,
-    oklch(0.82 0.19 75) 0%,
+    oklch(0.65 0.16 55) 0%,
     oklch(0.72 0.17 65) 40%,
-    oklch(0.65 0.15 55) 100%
+    oklch(0.6 0.15 50) 100%
   );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-/* Gradient text — gold to emerald */
+/* Gradient text — blue-gold hero */
 .gradient-text-hero {
   background: linear-gradient(
     135deg,
-    oklch(0.88 0.2 80) 0%,
-    oklch(0.78 0.18 70) 50%,
-    oklch(0.68 0.16 60) 100%
+    oklch(0.22 0.09 265) 0%,
+    oklch(0.45 0.22 245) 40%,
+    oklch(0.72 0.17 65) 100%
   );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-/* Glassmorphism card */
+/* White surface card */
 .glass-card {
-  background: linear-gradient(
-    135deg,
-    oklch(0.2 0.04 263 / 0.6),
-    oklch(0.16 0.035 263 / 0.4)
-  );
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid oklch(0.35 0.05 263 / 0.3);
+  background: oklch(0.99 0.002 255 / 0.9);
+  border: 1px solid oklch(0.88 0.04 265 / 0.7);
+  box-shadow: 0 2px 16px oklch(0.4 0.08 265 / 0.06);
 }
 
 /* Gold glow button */
@@ -208,39 +202,39 @@
   background: linear-gradient(
     135deg,
     oklch(0.78 0.18 75),
-    oklch(0.68 0.16 60)
+    oklch(0.65 0.16 55)
   );
-  color: oklch(0.1 0.01 250);
+  color: oklch(0.99 0.002 250);
   font-weight: 700;
   letter-spacing: 0.02em;
   transition: all 0.25s ease;
-  box-shadow: 0 0 30px oklch(0.72 0.17 65 / 0.3),
-    0 4px 15px oklch(0.72 0.17 65 / 0.2);
+  box-shadow: 0 4px 20px oklch(0.72 0.17 65 / 0.4),
+    0 2px 8px oklch(0.72 0.17 65 / 0.2);
 }
 
 .btn-gold:hover {
   background: linear-gradient(
     135deg,
     oklch(0.84 0.2 80),
-    oklch(0.74 0.18 65)
+    oklch(0.72 0.18 65)
   );
-  box-shadow: 0 0 50px oklch(0.72 0.17 65 / 0.5),
-    0 8px 25px oklch(0.72 0.17 65 / 0.3);
-  transform: translateY(-1px);
+  box-shadow: 0 8px 32px oklch(0.72 0.17 65 / 0.5),
+    0 4px 16px oklch(0.72 0.17 65 / 0.3);
+  transform: translateY(-2px);
 }
 
 .btn-gold-outline {
   background: transparent;
-  color: oklch(var(--gold));
-  border: 1.5px solid oklch(var(--gold));
+  color: oklch(var(--blue-accent));
+  border: 1.5px solid oklch(var(--blue-accent));
   font-weight: 600;
   letter-spacing: 0.02em;
   transition: all 0.25s ease;
 }
 
 .btn-gold-outline:hover {
-  background: oklch(var(--gold) / 0.1);
-  box-shadow: 0 0 20px oklch(0.72 0.17 65 / 0.3);
+  background: oklch(var(--blue-accent) / 0.08);
+  box-shadow: 0 0 20px oklch(0.45 0.22 245 / 0.25);
   transform: translateY(-1px);
 }
 
@@ -265,11 +259,12 @@
 
 /* Section divider */
 .section-divider {
-  height: 1px;
+  height: 2px;
   background: linear-gradient(
     90deg,
     transparent,
-    oklch(var(--gold) / 0.4),
+    oklch(var(--gold) / 0.5),
+    oklch(var(--blue-accent) / 0.4),
     transparent
   );
 }
@@ -293,12 +288,13 @@
 .stat-card {
   background: linear-gradient(
     135deg,
-    oklch(0.18 0.04 263 / 0.8),
-    oklch(0.14 0.03 263 / 0.6)
+    oklch(0.97 0.015 260 / 0.9),
+    oklch(0.95 0.02 255 / 0.8)
   );
-  border: 1px solid oklch(var(--gold) / 0.2);
+  border: 1px solid oklch(0.88 0.06 265 / 0.5);
   position: relative;
   overflow: hidden;
+  box-shadow: 0 2px 12px oklch(0.4 0.08 265 / 0.06);
 }
 
 .stat-card::before {
@@ -307,39 +303,44 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, oklch(var(--gold)), transparent);
+  height: 3px;
+  background: linear-gradient(90deg, oklch(0.72 0.17 65), oklch(0.45 0.22 245), oklch(0.88 0.18 88));
 }
 
 /* Module card */
 .module-card {
-  background: linear-gradient(
-    135deg,
-    oklch(0.18 0.04 263 / 0.9),
-    oklch(0.15 0.035 263 / 0.7)
-  );
-  border: 1px solid oklch(0.3 0.04 263 / 0.5);
+  background: oklch(0.98 0.005 255 / 0.95);
+  border: 1px solid oklch(0.88 0.05 265 / 0.5);
   transition: all 0.3s ease;
+  box-shadow: 0 2px 8px oklch(0.4 0.08 265 / 0.05);
 }
 
 .module-card:hover {
-  border-color: oklch(var(--gold) / 0.4);
-  box-shadow: 0 8px 32px oklch(var(--gold) / 0.08);
+  border-color: oklch(var(--gold) / 0.5);
+  box-shadow: 0 8px 32px oklch(var(--gold) / 0.12);
   transform: translateY(-2px);
 }
 
 /* Testimonial card */
 .testimonial-card {
-  background: linear-gradient(
-    135deg,
-    oklch(0.17 0.04 263 / 0.9),
-    oklch(0.14 0.03 263 / 0.7)
-  );
-  border: 1px solid oklch(0.28 0.04 263 / 0.5);
+  background: oklch(0.98 0.005 255 / 0.95);
+  border: 1px solid oklch(0.88 0.04 265 / 0.5);
   transition: all 0.3s ease;
+  box-shadow: 0 2px 8px oklch(0.4 0.08 265 / 0.05);
 }
 
 .testimonial-card:hover {
-  border-color: oklch(var(--gold) / 0.3);
-  box-shadow: 0 8px 32px oklch(var(--gold) / 0.06);
+  border-color: oklch(var(--gold) / 0.4);
+  box-shadow: 0 8px 32px oklch(var(--gold) / 0.1);
+}
+
+/* Blue section backgrounds */
+.section-blue {
+  background: linear-gradient(135deg, oklch(0.25 0.1 265), oklch(0.32 0.12 255));
+}
+
+/* Yellow accent strip */
+.yellow-accent {
+  background: oklch(var(--yellow-accent));
+  color: oklch(0.15 0.04 265);
 }
