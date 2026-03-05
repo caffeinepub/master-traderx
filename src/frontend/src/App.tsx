@@ -13,11 +13,13 @@ import {
   Brain,
   CheckCircle2,
   ChevronRight,
+  Lock,
   Play,
   Shield,
   Star,
   Target,
   TrendingUp,
+  Unlock,
   Users,
   XCircle,
 } from "lucide-react";
@@ -97,7 +99,7 @@ function StatCard({
       </div>
       <div
         className="text-sm font-body uppercase tracking-widest"
-        style={{ color: "oklch(0.75 0.05 265)" }}
+        style={{ color: "oklch(0.45 0.06 265)" }}
       >
         {label}
       </div>
@@ -240,6 +242,31 @@ function TrainingModal({
 }
 
 /* ================================================================
+   Company Logo Component
+   ================================================================ */
+function CompanyLogo({ src, alt }: { src: string; alt: string }) {
+  return (
+    <div
+      className="flex items-center justify-center px-3 py-2 rounded-xl"
+      style={{
+        background: "oklch(0.97 0.005 255 / 0.95)",
+        border: "1px solid oklch(0.88 0.04 265 / 0.5)",
+        minWidth: "120px",
+        height: "52px",
+      }}
+    >
+      <img
+        src={src}
+        alt={alt}
+        className="object-contain"
+        style={{ maxHeight: "36px", maxWidth: "110px" }}
+        loading="lazy"
+      />
+    </div>
+  );
+}
+
+/* ================================================================
    Main App
    ================================================================ */
 export default function App() {
@@ -265,11 +292,6 @@ export default function App() {
   }, []);
 
   const openModal = () => setModalOpen(true);
-
-  const scrollToStart = (e: React.MouseEvent) => {
-    e.preventDefault();
-    document.getElementById("start")?.scrollIntoView({ behavior: "smooth" });
-  };
 
   /* ----------------------------------------------------------------
      Testimonial data
@@ -356,12 +378,81 @@ export default function App() {
     "Understanding general market tendencies",
   ];
 
+  // Module 1 is FREE; modules 2-5 are locked until account is opened
   const modules = [
-    { num: "01", title: "Module 1: Trading Mindset & Market Reality" },
-    { num: "02", title: "Module 2: Market Structure & Price Reading" },
-    { num: "03", title: "Module 3: Risk Management & Trade Planning" },
-    { num: "04", title: "Module 4: Price Action Setups & PAT Framework" },
-    { num: "05", title: "Module 5: Discipline, Consistency & Trader Maturity" },
+    {
+      num: "01",
+      title: "Module 1: Trading Mindset & Market Reality",
+      free: true,
+    },
+    {
+      num: "02",
+      title: "Module 2: Market Structure & Price Reading",
+      free: false,
+    },
+    {
+      num: "03",
+      title: "Module 3: Risk Management & Trade Planning",
+      free: false,
+    },
+    {
+      num: "04",
+      title: "Module 4: Price Action Setups & PAT Framework",
+      free: false,
+    },
+    {
+      num: "05",
+      title: "Module 5: Discipline, Consistency & Trader Maturity",
+      free: false,
+    },
+  ];
+
+  // Featured on logos
+  const featuredLogos = [
+    {
+      src: "/assets/generated/logo-zee-business-transparent.dim_200x80.png",
+      alt: "Zee Business",
+    },
+    {
+      src: "/assets/generated/logo-et-now-transparent.dim_200x80.png",
+      alt: "ET Now",
+    },
+    {
+      src: "/assets/generated/logo-cnbc-awaaz-transparent.dim_200x80.png",
+      alt: "CNBC Awaaz",
+    },
+    {
+      src: "/assets/generated/logo-bloomberg-quint-transparent.dim_200x80.png",
+      alt: "Bloomberg Quint",
+    },
+    {
+      src: "/assets/generated/logo-moneycontrol-transparent.dim_200x80.png",
+      alt: "MoneyControl",
+    },
+  ];
+
+  // Worked with logos
+  const workedWithLogos = [
+    {
+      src: "/assets/generated/logo-zerodha-transparent.dim_200x80.png",
+      alt: "Zerodha",
+    },
+    {
+      src: "/assets/generated/logo-upstox-transparent.dim_200x80.png",
+      alt: "Upstox",
+    },
+    {
+      src: "/assets/generated/logo-angel-one-transparent.dim_200x80.png",
+      alt: "Angel One",
+    },
+    {
+      src: "/assets/generated/logo-sensibull-transparent.dim_200x80.png",
+      alt: "Sensibull",
+    },
+    {
+      src: "/assets/generated/logo-finlearn-transparent.dim_200x80.png",
+      alt: "Finlearn Academy",
+    },
   ];
 
   return (
@@ -429,7 +520,11 @@ export default function App() {
               <button
                 type="button"
                 className="hover:text-gold transition-colors"
-                onClick={scrollToStart}
+                onClick={() =>
+                  document
+                    .getElementById("start")
+                    ?.scrollIntoView({ behavior: "smooth" })
+                }
                 data-ocid="nav.program.link"
               >
                 Program
@@ -461,7 +556,7 @@ export default function App() {
         {/* ============================================================
             HERO SECTION — White background
             ============================================================ */}
-        <section className="relative min-h-screen flex flex-col justify-center pt-20 overflow-hidden bg-background">
+        <section className="relative min-h-screen flex flex-col justify-center overflow-hidden bg-background">
           {/* Subtle gold grid pattern */}
           <div className="absolute inset-0 z-0 pointer-events-none">
             <div
@@ -484,19 +579,25 @@ export default function App() {
             />
           </div>
 
-          <div className="container mx-auto px-4 relative z-10 py-20">
+          <div className="container mx-auto px-4 relative z-10 pt-24 pb-16 md:pt-28 md:pb-20">
             <div className="max-w-4xl mx-auto text-center">
-              {/* Badge */}
-              <div
-                className="fade-up inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-body font-semibold uppercase tracking-widest mb-8"
-                style={{
-                  background: "oklch(0.72 0.17 65 / 0.12)",
-                  border: "1px solid oklch(0.72 0.17 65 / 0.3)",
-                  color: "oklch(0.55 0.14 60)",
-                }}
-              >
-                <Award size={14} />
-                India's Free Signature Trading Education Initiative
+              {/* FREE INITIATIVE — Prominent hero badge */}
+              <div className="fade-up mb-6">
+                <div
+                  className="inline-flex items-center gap-3 px-6 py-3 rounded-2xl text-sm font-display font-bold uppercase tracking-wider"
+                  style={{
+                    background:
+                      "linear-gradient(135deg, oklch(0.72 0.17 65 / 0.18), oklch(0.55 0.22 245 / 0.12))",
+                    border: "2px solid oklch(0.72 0.17 65 / 0.5)",
+                    color: "oklch(0.45 0.16 60)",
+                    boxShadow: "0 4px 20px oklch(0.72 0.17 65 / 0.15)",
+                  }}
+                >
+                  <Award size={18} className="text-gold shrink-0" />
+                  <span>
+                    India's Free Signature Trading Education Initiative
+                  </span>
+                </div>
               </div>
 
               {/* Headline */}
@@ -518,7 +619,7 @@ export default function App() {
 
               {/* YouTube Video Embed */}
               <div
-                className="fade-up delay-3 w-full max-w-3xl mx-auto mb-10 rounded-2xl overflow-hidden shadow-2xl"
+                className="fade-up delay-3 w-full max-w-3xl mx-auto mb-8 rounded-2xl overflow-hidden shadow-2xl"
                 style={{ border: "1px solid oklch(0.72 0.17 65 / 0.4)" }}
               >
                 <div
@@ -534,38 +635,6 @@ export default function App() {
                     allowFullScreen
                   />
                 </div>
-              </div>
-
-              {/* Disclaimer badge */}
-              <div
-                className="fade-up delay-3 inline-flex flex-wrap items-center justify-center gap-x-4 gap-y-2 px-6 py-3 rounded-full mb-10 text-xs font-body"
-                style={{
-                  background: "oklch(0.93 0.04 245 / 0.8)",
-                  border: "1px solid oklch(0.75 0.12 245 / 0.4)",
-                  color: "oklch(0.25 0.1 265)",
-                }}
-              >
-                <span className="flex items-center gap-1.5">
-                  <span
-                    className="w-1.5 h-1.5 rounded-full inline-block"
-                    style={{ background: "oklch(0.55 0.22 245)" }}
-                  />
-                  Educational initiative
-                </span>
-                <span className="flex items-center gap-1.5">
-                  <span
-                    className="w-1.5 h-1.5 rounded-full inline-block"
-                    style={{ background: "oklch(0.55 0.22 245)" }}
-                  />
-                  No profit guarantees
-                </span>
-                <span className="flex items-center gap-1.5">
-                  <span
-                    className="w-1.5 h-1.5 rounded-full inline-block"
-                    style={{ background: "oklch(0.55 0.22 245)" }}
-                  />
-                  No trade recommendations
-                </span>
               </div>
 
               {/* Video prompt */}
@@ -585,12 +654,6 @@ export default function App() {
                   Begin the Master TraderX Training
                 </CTAButton>
               </div>
-
-              {/* Scroll indicator */}
-              <div className="fade-up delay-6 mt-16 flex flex-col items-center gap-2 text-muted-foreground text-xs font-body">
-                <span>Scroll to explore</span>
-                <div className="w-px h-12 bg-gradient-to-b from-muted-foreground/40 to-transparent" />
-              </div>
             </div>
           </div>
         </section>
@@ -598,14 +661,7 @@ export default function App() {
         {/* ============================================================
             STATS BAR — Deep Blue
             ============================================================ */}
-        <section
-          ref={statsRef}
-          className="py-16 relative"
-          style={{
-            background:
-              "linear-gradient(135deg, oklch(0.22 0.08 265), oklch(0.28 0.12 255))",
-          }}
-        >
+        <section ref={statsRef} className="py-16 relative bg-white">
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
               <StatCard
@@ -674,13 +730,19 @@ export default function App() {
               ].map((card) => (
                 <div
                   key={card.title}
-                  className={`glass-card rounded-2xl p-8 fade-up ${card.delay} group hover:border-gold/30 transition-all duration-300`}
+                  className={`rounded-2xl p-8 fade-up ${card.delay} group hover:border-gold/30 transition-all duration-300`}
+                  style={{
+                    background:
+                      "linear-gradient(135deg, oklch(0.97 0.008 260 / 0.9), oklch(0.94 0.015 255 / 0.7))",
+                    border: "1px solid oklch(0.72 0.17 65 / 0.2)",
+                    boxShadow: "0 4px 20px oklch(0.4 0.08 265 / 0.07)",
+                  }}
                 >
                   <div
                     className="w-14 h-14 rounded-xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300"
                     style={{
-                      background: "oklch(0.72 0.17 65 / 0.1)",
-                      border: "1px solid oklch(0.72 0.17 65 / 0.2)",
+                      background: "oklch(0.72 0.17 65 / 0.12)",
+                      border: "1px solid oklch(0.72 0.17 65 / 0.3)",
                     }}
                   >
                     {card.icon}
@@ -688,15 +750,26 @@ export default function App() {
                   <h3 className="font-display font-bold text-xl text-foreground mb-3">
                     {card.title}
                   </h3>
-                  <p className="text-muted-foreground font-body leading-relaxed">
+                  <p
+                    className="font-body leading-relaxed"
+                    style={{ color: "oklch(0.35 0.06 265)" }}
+                  >
                     {card.desc}
                   </p>
                 </div>
               ))}
             </div>
 
-            <div className="fade-up glass-card rounded-2xl p-8 text-center max-w-3xl mx-auto">
-              <p className="text-foreground/90 font-body text-lg leading-relaxed">
+            <div
+              className="fade-up rounded-2xl p-8 text-center max-w-3xl mx-auto"
+              style={{
+                background:
+                  "linear-gradient(135deg, oklch(0.25 0.09 265), oklch(0.30 0.12 255))",
+                border: "1px solid oklch(0.72 0.17 65 / 0.25)",
+                boxShadow: "0 8px 32px oklch(0.22 0.09 265 / 0.15)",
+              }}
+            >
+              <p className="text-white font-body text-lg leading-relaxed">
                 Master TraderX was created with a long-term vision — to improve
                 the quality of trading education in India. By{" "}
                 <strong className="text-gold">2026</strong>, this initiative
@@ -761,7 +834,12 @@ export default function App() {
                   ].map((item) => (
                     <div
                       key={item.label}
-                      className="stat-card rounded-xl p-4 text-center"
+                      className="rounded-xl p-4 text-center"
+                      style={{
+                        background: "white",
+                        border: "1px solid oklch(0.72 0.17 65 / 0.3)",
+                        boxShadow: "0 2px 12px oklch(0.4 0.08 265 / 0.1)",
+                      }}
                     >
                       <div className="text-gold flex items-center justify-center mb-2">
                         {item.icon}
@@ -771,7 +849,7 @@ export default function App() {
                       </div>
                       <div
                         className="text-xs mt-1"
-                        style={{ color: "oklch(0.75 0.05 265)" }}
+                        style={{ color: "oklch(0.45 0.06 265)" }}
                       >
                         {item.label}
                       </div>
@@ -779,7 +857,7 @@ export default function App() {
                   ))}
                 </div>
 
-                {/* Featured on */}
+                {/* Featured on — with logos */}
                 <div
                   className="rounded-xl p-5"
                   style={{
@@ -788,35 +866,23 @@ export default function App() {
                   }}
                 >
                   <p
-                    className="text-xs uppercase tracking-widest font-body mb-3"
-                    style={{ color: "oklch(0.72 0.17 65)" }}
+                    className="text-xs uppercase tracking-widest font-body font-semibold mb-4"
+                    style={{ color: "oklch(0.82 0.19 75)" }}
                   >
                     Featured on
                   </p>
-                  <div className="flex flex-wrap gap-2">
-                    {[
-                      "Zee Business",
-                      "ET Now",
-                      "CNBC Awaaz",
-                      "Bloomberg Quint",
-                      "MoneyControl",
-                    ].map((name) => (
-                      <span
-                        key={name}
-                        className="px-3 py-1.5 rounded-full text-xs font-body font-semibold"
-                        style={{
-                          background: "oklch(0.35 0.1 265 / 0.8)",
-                          border: "1px solid oklch(0.45 0.12 265 / 0.5)",
-                          color: "white",
-                        }}
-                      >
-                        {name}
-                      </span>
+                  <div className="flex flex-wrap gap-3">
+                    {featuredLogos.map((logo) => (
+                      <CompanyLogo
+                        key={logo.alt}
+                        src={logo.src}
+                        alt={logo.alt}
+                      />
                     ))}
                   </div>
                 </div>
 
-                {/* Also worked with */}
+                {/* Also worked with — with logos */}
                 <div
                   className="rounded-xl p-5"
                   style={{
@@ -825,30 +891,18 @@ export default function App() {
                   }}
                 >
                   <p
-                    className="text-xs uppercase tracking-widest font-body mb-3"
-                    style={{ color: "oklch(0.72 0.17 65)" }}
+                    className="text-xs uppercase tracking-widest font-body font-semibold mb-4"
+                    style={{ color: "oklch(0.82 0.19 75)" }}
                   >
                     Also worked with
                   </p>
-                  <div className="flex flex-wrap gap-2">
-                    {[
-                      "Zerodha",
-                      "Upstox",
-                      "Angel One",
-                      "Sensibull",
-                      "Finlearn Academy",
-                    ].map((name) => (
-                      <span
-                        key={name}
-                        className="px-3 py-1.5 rounded-full text-xs font-body font-semibold"
-                        style={{
-                          background: "oklch(0.35 0.1 265 / 0.8)",
-                          border: "1px solid oklch(0.45 0.12 265 / 0.5)",
-                          color: "white",
-                        }}
-                      >
-                        {name}
-                      </span>
+                  <div className="flex flex-wrap gap-3">
+                    {workedWithLogos.map((logo) => (
+                      <CompanyLogo
+                        key={logo.alt}
+                        src={logo.src}
+                        alt={logo.alt}
+                      />
                     ))}
                   </div>
                 </div>
@@ -867,7 +921,7 @@ export default function App() {
                   >
                     Full-Time Trader & Educator
                   </Badge>
-                  <p className="text-white/90 font-body text-lg leading-relaxed mb-4">
+                  <p className="text-white font-body text-lg leading-relaxed mb-4">
                     Kirti Agrawal is a full-time trader, trading educator, and
                     market mentor with over{" "}
                     <strong className="text-gold">
@@ -875,10 +929,10 @@ export default function App() {
                     </strong>{" "}
                     in Indian equity markets.
                   </p>
-                  <p className="text-white/70 font-body leading-relaxed">
+                  <p className="text-white/80 font-body leading-relaxed">
                     After struggling for nearly eight years and experiencing
                     losses of close to{" "}
-                    <strong className="text-white/90">₹20 lakhs</strong>, Kirti
+                    <strong className="text-white">₹20 lakhs</strong>, Kirti
                     rebuilt her trading approach through discipline, psychology,
                     and structured systems.
                   </p>
@@ -896,13 +950,13 @@ export default function App() {
                       <div className="text-gold shrink-0 mt-0.5">
                         {item.icon}
                       </div>
-                      <p className="text-white/80 font-body">{item.text}</p>
+                      <p className="text-white font-body">{item.text}</p>
                     </div>
                   ))}
                 </div>
 
                 <blockquote className="border-l-4 border-gold pl-6 py-2">
-                  <p className="text-white/90 font-serif italic text-lg leading-relaxed">
+                  <p className="text-white font-serif italic text-lg leading-relaxed">
                     "Master TraderX represents the distillation of her
                     real-market experience into a structured learning
                     initiative."
@@ -928,13 +982,22 @@ export default function App() {
                 {learnItems.map((item, i) => (
                   <div
                     key={item}
-                    className={`flex items-start gap-4 p-5 glass-card rounded-xl fade-up delay-${(i % 4) + 1}`}
+                    className={`flex items-start gap-4 p-5 rounded-xl fade-up delay-${(i % 4) + 1}`}
+                    style={{
+                      background:
+                        "linear-gradient(135deg, oklch(0.97 0.008 260), oklch(0.94 0.015 255))",
+                      border: "1px solid oklch(0.72 0.17 65 / 0.18)",
+                      boxShadow: "0 2px 12px oklch(0.4 0.08 265 / 0.06)",
+                    }}
                   >
                     <CheckCircle2
                       size={22}
                       className="text-gold shrink-0 mt-0.5"
                     />
-                    <p className="text-foreground/90 font-body leading-relaxed">
+                    <p
+                      className="font-body leading-relaxed"
+                      style={{ color: "oklch(0.2 0.06 265)" }}
+                    >
                       {item}
                     </p>
                   </div>
@@ -991,10 +1054,12 @@ export default function App() {
               ].map((pillar) => (
                 <div
                   key={pillar.title}
-                  className={`rounded-2xl p-8 text-center fade-up ${pillar.delay} group hover:border-gold/30 transition-all duration-300`}
+                  className={`rounded-2xl p-8 text-center fade-up ${pillar.delay} group transition-all duration-300`}
                   style={{
-                    background: "oklch(0.30 0.08 265 / 0.6)",
-                    border: "1px solid oklch(0.45 0.12 265 / 0.4)",
+                    background:
+                      "linear-gradient(135deg, oklch(0.30 0.10 265 / 0.7), oklch(0.25 0.08 265 / 0.9))",
+                    border: "1px solid oklch(0.72 0.17 65 / 0.25)",
+                    boxShadow: "0 4px 24px oklch(0.15 0.06 265 / 0.3)",
                   }}
                 >
                   <div
@@ -1009,7 +1074,7 @@ export default function App() {
                   <h3 className="font-display font-bold text-xl gradient-text-gold mb-3">
                     {pillar.title}
                   </h3>
-                  <p className="text-white/70 font-body leading-relaxed">
+                  <p className="text-white/80 font-body leading-relaxed">
                     {pillar.desc}
                   </p>
                 </div>
@@ -1032,8 +1097,13 @@ export default function App() {
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto">
               <div
-                className="glass-card rounded-3xl p-10 md:p-14 relative overflow-hidden fade-up"
-                style={{ border: "1px solid oklch(0.72 0.17 65 / 0.3)" }}
+                className="rounded-3xl p-10 md:p-14 relative overflow-hidden fade-up"
+                style={{
+                  background:
+                    "linear-gradient(135deg, oklch(0.97 0.008 260), oklch(0.95 0.015 255))",
+                  border: "1px solid oklch(0.72 0.17 65 / 0.3)",
+                  boxShadow: "0 8px 40px oklch(0.72 0.17 65 / 0.08)",
+                }}
               >
                 {/* Decorative glow */}
                 <div
@@ -1059,7 +1129,10 @@ export default function App() {
                     The PAT Framework
                   </h2>
 
-                  <p className="text-foreground/80 font-body text-lg leading-relaxed mb-8">
+                  <p
+                    className="font-body text-lg leading-relaxed mb-8"
+                    style={{ color: "oklch(0.28 0.07 265)" }}
+                  >
                     Inside Master TraderX, learners are introduced to the{" "}
                     <strong className="text-gold">PAT Framework</strong>, which
                     focuses on:
@@ -1070,10 +1143,16 @@ export default function App() {
                       <div
                         key={item}
                         className={`flex items-center gap-3 p-4 rounded-xl fade-up delay-${(i % 4) + 1}`}
-                        style={{ background: "oklch(0.93 0.04 265 / 0.5)" }}
+                        style={{
+                          background: "oklch(0.24 0.09 265 / 0.06)",
+                          border: "1px solid oklch(0.72 0.17 65 / 0.12)",
+                        }}
                       >
                         <span className="w-2 h-2 rounded-full bg-gold shrink-0" />
-                        <span className="text-foreground/85 font-body">
+                        <span
+                          className="font-body"
+                          style={{ color: "oklch(0.22 0.07 265)" }}
+                        >
                           {item}
                         </span>
                       </div>
@@ -1096,7 +1175,7 @@ export default function App() {
         </section>
 
         {/* ============================================================
-            PROGRAM STRUCTURE — Deep Blue
+            PROGRAM STRUCTURE — Deep Blue (Module 1 FREE, 2-5 locked)
             ============================================================ */}
         <section
           id="start"
@@ -1109,7 +1188,7 @@ export default function App() {
           <div className="container mx-auto px-4">
             <SectionHeader title="Program Structure" light />
 
-            <div className="text-center mb-10 fade-up">
+            <div className="text-center mb-6 fade-up">
               <div
                 className="inline-flex items-center gap-3 px-6 py-3 rounded-full"
                 style={{
@@ -1130,42 +1209,130 @@ export default function App() {
               </div>
             </div>
 
+            {/* Unlock banner */}
+            <div
+              className="max-w-3xl mx-auto mb-6 fade-up rounded-xl px-5 py-4 flex items-center gap-3"
+              style={{
+                background: "oklch(0.72 0.17 65 / 0.12)",
+                border: "1px solid oklch(0.72 0.17 65 / 0.35)",
+              }}
+            >
+              <Unlock size={18} className="text-gold shrink-0" />
+              <p className="text-white/90 font-body text-sm">
+                <strong className="text-gold">Module 1 is free.</strong> Open a
+                FYERS account to unlock the remaining 4 modules instantly.
+              </p>
+            </div>
+
             <div className="max-w-3xl mx-auto space-y-4">
               {modules.map((mod, i) => (
                 <div
                   key={mod.num}
                   className={`rounded-xl p-5 md:p-6 flex items-center justify-between gap-4 fade-up delay-${i + 1}`}
                   style={{
-                    background: "oklch(0.30 0.08 265 / 0.8)",
-                    border: "1px solid oklch(0.42 0.10 265 / 0.5)",
+                    background: mod.free
+                      ? "linear-gradient(135deg, oklch(0.72 0.17 65 / 0.18), oklch(0.55 0.22 245 / 0.1))"
+                      : "oklch(0.30 0.08 265 / 0.8)",
+                    border: mod.free
+                      ? "1px solid oklch(0.72 0.17 65 / 0.5)"
+                      : "1px solid oklch(0.42 0.10 265 / 0.5)",
                     transition: "all 0.3s ease",
                   }}
                   data-ocid={`program.item.${i + 1}`}
                 >
                   <div className="flex items-center gap-5">
-                    <span className="text-3xl font-display font-black text-gold opacity-70 shrink-0 w-10">
+                    <span
+                      className="text-3xl font-display font-black shrink-0 w-10"
+                      style={{
+                        color: mod.free
+                          ? "oklch(0.82 0.19 75)"
+                          : "oklch(0.72 0.17 65 / 0.6)",
+                      }}
+                    >
                       {mod.num}
                     </span>
                     <div>
-                      <h3 className="font-display font-bold text-white/95">
-                        {mod.title}
-                      </h3>
+                      <div className="flex items-center gap-2 mb-1">
+                        <h3
+                          className="font-display font-bold"
+                          style={{
+                            color: mod.free ? "white" : "oklch(0.85 0.04 265)",
+                          }}
+                        >
+                          {mod.title}
+                        </h3>
+                      </div>
+                      {mod.free ? (
+                        <span
+                          className="text-xs font-display font-bold px-2 py-0.5 rounded-full"
+                          style={{
+                            background: "oklch(0.72 0.17 65 / 0.25)",
+                            color: "oklch(0.82 0.19 75)",
+                            border: "1px solid oklch(0.72 0.17 65 / 0.4)",
+                          }}
+                        >
+                          FREE
+                        </span>
+                      ) : (
+                        <span
+                          className="text-xs font-body flex items-center gap-1"
+                          style={{ color: "oklch(0.65 0.05 265)" }}
+                        >
+                          <Lock size={10} /> Unlock by opening FYERS account
+                        </span>
+                      )}
                     </div>
                   </div>
                   <button
                     type="button"
                     onClick={openModal}
                     className="btn-gold-outline rounded-lg px-4 py-2 text-sm font-display font-semibold shrink-0 whitespace-nowrap flex items-center gap-1.5"
-                    style={{
-                      color: "oklch(0.82 0.19 75)",
-                      borderColor: "oklch(0.72 0.17 65 / 0.6)",
-                    }}
+                    style={
+                      mod.free
+                        ? {
+                            background: "oklch(0.72 0.17 65)",
+                            color: "white",
+                            border: "none",
+                          }
+                        : {
+                            color: "oklch(0.82 0.19 75)",
+                            borderColor: "oklch(0.72 0.17 65 / 0.6)",
+                          }
+                    }
                     data-ocid={`program.button.${i + 1}`}
                   >
-                    Go to Module <ChevronRight size={14} />
+                    {mod.free ? (
+                      <>
+                        <Play size={13} /> Start Free
+                      </>
+                    ) : (
+                      <>
+                        Unlock <Lock size={12} />
+                      </>
+                    )}
                   </button>
                 </div>
               ))}
+            </div>
+
+            {/* Bottom CTA after modules */}
+            <div className="max-w-3xl mx-auto mt-8 fade-up">
+              <div
+                className="rounded-xl px-6 py-5 flex flex-col sm:flex-row items-center gap-4 justify-between"
+                style={{
+                  background: "oklch(0.30 0.08 265 / 0.8)",
+                  border: "1px solid oklch(0.45 0.12 265 / 0.4)",
+                }}
+              >
+                <p className="text-white/80 font-body text-sm text-center sm:text-left">
+                  Open a free FYERS account to get instant access to all 5
+                  modules.
+                </p>
+                <CTAButton onClick={openModal} size="sm">
+                  <Unlock size={14} />
+                  Unlock All Modules
+                </CTAButton>
+              </div>
             </div>
           </div>
         </section>
@@ -1180,8 +1347,13 @@ export default function App() {
             <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
               {/* FOR */}
               <div
-                className="glass-card rounded-2xl p-8 fade-up delay-1"
-                style={{ border: "1px solid oklch(0.55 0.22 245 / 0.3)" }}
+                className="rounded-2xl p-8 fade-up delay-1"
+                style={{
+                  background:
+                    "linear-gradient(135deg, oklch(0.97 0.01 255), oklch(0.94 0.018 250))",
+                  border: "1px solid oklch(0.55 0.22 245 / 0.3)",
+                  boxShadow: "0 4px 20px oklch(0.55 0.22 245 / 0.07)",
+                }}
               >
                 <h3 className="font-display font-bold text-xl mb-6 flex items-center gap-3">
                   <div
@@ -1201,7 +1373,8 @@ export default function App() {
                   ].map((item) => (
                     <li
                       key={item}
-                      className="flex items-center gap-3 font-body text-foreground/85"
+                      className="flex items-center gap-3 font-body"
+                      style={{ color: "oklch(0.2 0.06 265)" }}
                     >
                       <CheckCircle2
                         size={18}
@@ -1215,8 +1388,13 @@ export default function App() {
 
               {/* NOT FOR */}
               <div
-                className="glass-card rounded-2xl p-8 fade-up delay-2"
-                style={{ border: "1px solid oklch(0.55 0.22 25 / 0.3)" }}
+                className="rounded-2xl p-8 fade-up delay-2"
+                style={{
+                  background:
+                    "linear-gradient(135deg, oklch(0.97 0.005 30), oklch(0.94 0.012 25))",
+                  border: "1px solid oklch(0.55 0.22 25 / 0.3)",
+                  boxShadow: "0 4px 20px oklch(0.55 0.22 25 / 0.07)",
+                }}
               >
                 <h3 className="font-display font-bold text-xl mb-6 flex items-center gap-3">
                   <div
@@ -1240,7 +1418,8 @@ export default function App() {
                   ].map((item) => (
                     <li
                       key={item}
-                      className="flex items-center gap-3 font-body text-foreground/85"
+                      className="flex items-center gap-3 font-body"
+                      style={{ color: "oklch(0.2 0.06 265)" }}
                     >
                       <XCircle
                         size={18}
@@ -1296,7 +1475,7 @@ export default function App() {
                     ))}
                   </div>
                   {/* Quote */}
-                  <p className="text-white/85 font-body leading-relaxed mb-5 text-sm italic">
+                  <p className="text-white font-body leading-relaxed mb-5 text-sm italic">
                     "{t.quote}"
                   </p>
                   {/* Name */}
@@ -1393,7 +1572,7 @@ export default function App() {
                 <br />
                 Trading Foundation?
               </h2>
-              <p className="text-white/70 font-body text-xl mb-10 leading-relaxed">
+              <p className="text-white font-body text-xl mb-10 leading-relaxed">
                 Join thousands of Indian traders learning the right way.
               </p>
               <CTAButton
@@ -1446,9 +1625,8 @@ export default function App() {
               style={{ color: "oklch(0.65 0.04 265)" }}
             >
               Master TraderX is a free educational initiative. All content is
-              for learning purposes only. This is not financial advice. No
-              profit guarantees are made. Trading in financial markets involves
-              risk.
+              for learning purposes only. This is not financial advice. Trading
+              in financial markets involves risk.
             </p>
 
             <div className="section-divider w-full" />
