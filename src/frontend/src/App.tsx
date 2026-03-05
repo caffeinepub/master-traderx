@@ -410,48 +410,36 @@ export default function App() {
   // Featured on logos
   const featuredLogos = [
     {
-      src: "/assets/generated/logo-zee-business-transparent.dim_200x80.png",
-      alt: "Zee Business",
+      src: "/assets/uploads/tmp_b_5kfr2-1.webp",
+      alt: "TV18",
     },
     {
-      src: "/assets/generated/logo-et-now-transparent.dim_200x80.png",
+      src: "/assets/uploads/tmp2ulld9by-2.jpg",
       alt: "ET Now",
     },
     {
-      src: "/assets/generated/logo-cnbc-awaaz-transparent.dim_200x80.png",
-      alt: "CNBC Awaaz",
+      src: "/assets/uploads/tmptlyrodkx-3.webp",
+      alt: "Zee Business",
     },
     {
-      src: "/assets/generated/logo-bloomberg-quint-transparent.dim_200x80.png",
-      alt: "Bloomberg Quint",
-    },
-    {
-      src: "/assets/generated/logo-moneycontrol-transparent.dim_200x80.png",
-      alt: "MoneyControl",
+      src: "/assets/uploads/tmpgmo8bqjn-4.webp",
+      alt: "CNBC",
     },
   ];
 
   // Worked with logos
   const workedWithLogos = [
     {
-      src: "/assets/generated/logo-zerodha-transparent.dim_200x80.png",
-      alt: "Zerodha",
+      src: "/assets/uploads/tmpifydv993-1.webp",
+      alt: "Alliance India",
     },
     {
-      src: "/assets/generated/logo-upstox-transparent.dim_200x80.png",
-      alt: "Upstox",
+      src: "/assets/uploads/tmpifdwu8ls-2.webp",
+      alt: "FYERS",
     },
     {
-      src: "/assets/generated/logo-angel-one-transparent.dim_200x80.png",
-      alt: "Angel One",
-    },
-    {
-      src: "/assets/generated/logo-sensibull-transparent.dim_200x80.png",
-      alt: "Sensibull",
-    },
-    {
-      src: "/assets/generated/logo-finlearn-transparent.dim_200x80.png",
-      alt: "Finlearn Academy",
+      src: "/assets/uploads/tmplxgtszf3-3.webp",
+      alt: "eLearnMarkets",
     },
   ];
 
