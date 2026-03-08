@@ -177,12 +177,12 @@
   background-clip: text;
 }
 
-/* Gradient text — blue-gold hero */
+/* Gradient text — gold-blue hero */
 .gradient-text-hero {
   background: linear-gradient(
     135deg,
-    oklch(0.22 0.09 265) 0%,
-    oklch(0.45 0.22 245) 40%,
+    oklch(0.82 0.19 75) 0%,
+    oklch(0.55 0.22 245) 50%,
     oklch(0.72 0.17 65) 100%
   );
   -webkit-background-clip: text;

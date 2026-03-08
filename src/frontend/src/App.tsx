@@ -375,7 +375,7 @@ export default function App() {
     {
       num: "01",
       title: "Module 1",
-      subtitle: "✔ Free – Start Now",
+      subtitle: "Free – Start Now",
       free: true,
     },
     {
@@ -618,20 +618,64 @@ export default function App() {
               </p>
 
               {/* Trust Indicators */}
-              <div className="fade-up delay-2 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 mb-8">
-                {[
-                  "✔ 15+ Years Trading Experience",
-                  "✔ ₹5 Cr Trading Profits",
-                  "✔ Mission: Train 1 Lakh Traders by 2026",
-                ].map((item) => (
+              <div className="fade-up delay-2 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 mb-8">
+                <div
+                  className="flex items-center gap-2 px-4 py-2 rounded-full shadow-sm"
+                  style={{
+                    background: "oklch(0.97 0.04 245)",
+                    border: "1.5px solid oklch(0.65 0.15 245 / 0.35)",
+                  }}
+                >
+                  <Award
+                    size={18}
+                    className="flex-shrink-0"
+                    style={{ color: "oklch(0.55 0.20 245)" }}
+                  />
                   <span
-                    key={item}
-                    className="text-sm font-body font-semibold"
-                    style={{ color: "oklch(0.35 0.12 245)" }}
+                    className="text-sm font-body font-bold"
+                    style={{ color: "oklch(0.28 0.14 245)" }}
                   >
-                    {item}
+                    15+ Years Trading Experience
                   </span>
-                ))}
+                </div>
+                <div
+                  className="flex items-center gap-2 px-4 py-2 rounded-full shadow-sm"
+                  style={{
+                    background: "oklch(0.97 0.06 65)",
+                    border: "1.5px solid oklch(0.72 0.17 65 / 0.45)",
+                  }}
+                >
+                  <TrendingUp
+                    size={18}
+                    className="flex-shrink-0"
+                    style={{ color: "oklch(0.58 0.20 65)" }}
+                  />
+                  <span
+                    className="text-sm font-body font-bold"
+                    style={{ color: "oklch(0.35 0.15 65)" }}
+                  >
+                    ₹5 Cr Trading Profits
+                  </span>
+                </div>
+                <div
+                  className="flex items-center gap-2 px-4 py-2 rounded-full shadow-sm"
+                  style={{
+                    background: "oklch(0.97 0.04 145)",
+                    border: "1.5px solid oklch(0.60 0.18 145 / 0.35)",
+                  }}
+                >
+                  <Users
+                    size={18}
+                    className="flex-shrink-0"
+                    style={{ color: "oklch(0.45 0.18 145)" }}
+                  />
+                  <span
+                    className="text-sm font-body font-bold"
+                    style={{ color: "oklch(0.28 0.14 145)" }}
+                  >
+                    Mission: Train 1 Lakh Traders by 2026
+                  </span>
+                </div>
               </div>
 
               {/* YouTube Video Embed */}
@@ -1137,7 +1181,6 @@ export default function App() {
                     boxShadow: "0 4px 24px oklch(0.15 0.06 265 / 0.3)",
                   }}
                 >
-                  <div className="text-3xl mb-3">{pillar.num}</div>
                   <div
                     className="w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300"
                     style={{
@@ -1527,7 +1570,7 @@ export default function App() {
                     }}
                   >
                     <CheckCircle2 size={22} className="text-gold shrink-0" />
-                    <span className="text-white font-body">✔ {benefit}</span>
+                    <span className="text-white font-body">{benefit}</span>
                   </div>
                 ))}
               </div>
