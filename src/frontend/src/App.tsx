@@ -17,10 +17,10 @@ import {
   Play,
   Shield,
   Star,
-  Target,
   TrendingUp,
   Unlock,
   Users,
+  X,
   XCircle,
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
@@ -137,49 +137,7 @@ function SectionHeader({
 }
 
 /* ================================================================
-   CTA Button
-   ================================================================ */
-interface CTAButtonProps {
-  children: React.ReactNode;
-  onClick?: () => void;
-  size?: "sm" | "md" | "lg";
-  className?: string;
-  href?: string;
-}
-
-function CTAButton({
-  children,
-  onClick,
-  size = "md",
-  className = "",
-  href,
-}: CTAButtonProps) {
-  const sizeClasses = {
-    sm: "px-5 py-2.5 text-sm",
-    md: "px-7 py-3.5 text-base",
-    lg: "px-10 py-5 text-lg",
-  };
-  const handleClick = (e: React.MouseEvent) => {
-    if (href) {
-      e.preventDefault();
-      const el = document.getElementById(href.replace("#", ""));
-      if (el) el.scrollIntoView({ behavior: "smooth" });
-    }
-    onClick?.();
-  };
-  return (
-    <button
-      type="button"
-      onClick={handleClick}
-      className={`btn-gold rounded-lg font-display font-bold inline-flex items-center gap-2 ${sizeClasses[size]} ${className}`}
-    >
-      {children}
-    </button>
-  );
-}
-
-/* ================================================================
-   Training Modal
+   Training Modal (FYERS account signup)
    ================================================================ */
 function TrainingModal({
   open,
@@ -196,7 +154,7 @@ function TrainingModal({
       >
         <DialogHeader>
           <DialogTitle className="font-display text-2xl gradient-text-gold">
-            Master TraderX Training
+            FREE MasterTraderX Trading Program
           </DialogTitle>
         </DialogHeader>
         <div className="space-y-4 py-2">
@@ -242,6 +200,59 @@ function TrainingModal({
 }
 
 /* ================================================================
+   Video Modal (Free Lesson — YouTube embed)
+   ================================================================ */
+function VideoModal({
+  open,
+  onClose,
+}: {
+  open: boolean;
+  onClose: () => void;
+}) {
+  return (
+    <Dialog open={open} onOpenChange={onClose}>
+      <DialogContent
+        className="max-w-3xl w-full p-4 md:p-6"
+        style={{
+          background: "oklch(0.12 0.05 265)",
+          border: "1px solid oklch(0.72 0.17 65 / 0.35)",
+        }}
+        data-ocid="video.modal"
+      >
+        <DialogHeader className="flex flex-row items-center justify-between pb-3">
+          <DialogTitle className="font-display text-lg gradient-text-gold">
+            Module 1: Trading Mindset &amp; Market Reality
+          </DialogTitle>
+          <button
+            type="button"
+            onClick={onClose}
+            className="rounded-full p-1 transition-colors hover:bg-white/10"
+            data-ocid="video.close_button"
+            aria-label="Close video"
+          >
+            <X size={18} className="text-white/70" />
+          </button>
+        </DialogHeader>
+        {/* 16:9 responsive embed */}
+        <div
+          className="relative w-full rounded-xl overflow-hidden"
+          style={{ paddingBottom: "56.25%" }}
+        >
+          <iframe
+            className="absolute inset-0 w-full h-full"
+            src="https://www.youtube.com/embed/2_rFKK7zGOQ?autoplay=1"
+            title="FREE MasterTraderX Trading Program — Free Lesson"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          />
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
+/* ================================================================
    Company Logo Component
    ================================================================ */
 function CompanyLogo({ src, alt }: { src: string; alt: string }) {
@@ -272,7 +283,7 @@ function CompanyLogo({ src, alt }: { src: string; alt: string }) {
 export default function App() {
   useScrollReveal();
   const [modalOpen, setModalOpen] = useState(false);
-  const [_mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [videoModalOpen, setVideoModalOpen] = useState(false);
 
   // Stats section visibility
   const statsRef = useRef<HTMLDivElement>(null);
@@ -292,6 +303,7 @@ export default function App() {
   }, []);
 
   const openModal = () => setModalOpen(true);
+  const openVideoModal = () => setVideoModalOpen(true);
 
   /* ----------------------------------------------------------------
      Testimonial data
@@ -322,7 +334,7 @@ export default function App() {
       name: "Deepika Nair",
       role: "Full-time Trader, Pune",
       quote:
-        "I had watched hundreds of YouTube videos but never understood market structure properly. Master TraderX filled that gap completely.",
+        "I had watched hundreds of YouTube videos but never understood market structure properly. FREE MasterTraderX Trading Program filled that gap completely.",
       stars: 5,
     },
     {
@@ -341,32 +353,12 @@ export default function App() {
     },
   ];
 
-  const aboutHighlights = [
-    {
-      icon: <Brain size={20} />,
-      text: "Rebuilt her entire trading psychology after years of costly lessons",
-    },
-    {
-      icon: <Shield size={20} />,
-      text: "Developed the PAT Framework from 15+ years of real market experience",
-    },
-    {
-      icon: <Users size={20} />,
-      text: "On a mission to educate one lakh traders by 2026",
-    },
-    {
-      icon: <Award size={20} />,
-      text: "Recognized by leading financial media in India",
-    },
-  ];
-
   const learnItems = [
     "How professional traders understand market structure",
     "How to read price objectively using price action",
-    "How to manage risk before focusing on profits",
-    "How emotions impact trading decisions",
-    "How discipline creates long-term consistency",
-    "Why most traders lose money — and how to avoid common mistakes",
+    "Risk management before focusing on profits",
+    "Emotional discipline in trading",
+    "Why most traders lose money",
   ];
 
   const patItems = [
@@ -382,76 +374,116 @@ export default function App() {
   const modules = [
     {
       num: "01",
-      title: "Module 1: Trading Mindset & Market Reality",
+      title: "Module 1",
+      subtitle: "✔ Free – Start Now",
       free: true,
     },
     {
       num: "02",
-      title: "Module 2: Market Structure & Price Reading",
+      title: "Module 2",
+      subtitle: "🔒 Market Structure & Price Reading",
       free: false,
     },
     {
       num: "03",
-      title: "Module 3: Risk Management & Trade Planning",
+      title: "Module 3",
+      subtitle: "🔒 Risk Management & Trade Planning",
       free: false,
     },
     {
       num: "04",
-      title: "Module 4: Price Action Setups & PAT Framework",
+      title: "Module 4",
+      subtitle: "🔒 Price Action Setups & PAT Framework",
       free: false,
     },
     {
       num: "05",
-      title: "Module 5: Discipline, Consistency & Trader Maturity",
+      title: "Module 5",
+      subtitle: "🔒 Discipline & Trader Maturity",
       free: false,
     },
   ];
 
-  // Featured on logos
-  const featuredLogos = [
+  // All logos unified under "Featured On"
+  const allLogos = [
+    { src: "/assets/uploads/tmp_b_5kfr2-1.webp", alt: "TV18" },
+    { src: "/assets/uploads/tmp2ulld9by-2.jpg", alt: "ET Now" },
+    { src: "/assets/uploads/tmptlyrodkx-3.webp", alt: "Zee Business" },
+    { src: "/assets/uploads/tmpgmo8bqjn-4.webp", alt: "CNBC" },
+    { src: "/assets/uploads/tmpifydv993-1.webp", alt: "Alliance India" },
+    { src: "/assets/uploads/tmpifdwu8ls-2.webp", alt: "FYERS" },
+    { src: "/assets/uploads/tmplxgtszf3-3.webp", alt: "eLearnMarkets" },
     {
-      src: "/assets/uploads/tmp_b_5kfr2-1.webp",
-      alt: "TV18",
+      src: "/assets/generated/logo-moneycontrol-transparent.dim_240x80.png",
+      alt: "Moneycontrol",
     },
     {
-      src: "/assets/uploads/tmp2ulld9by-2.jpg",
-      alt: "ET Now",
+      src: "/assets/generated/logo-aliceblue-transparent.dim_240x80.png",
+      alt: "Alice Blue",
     },
     {
-      src: "/assets/uploads/tmptlyrodkx-3.webp",
-      alt: "Zee Business",
-    },
-    {
-      src: "/assets/uploads/tmpgmo8bqjn-4.webp",
-      alt: "CNBC",
+      src: "/assets/generated/logo-angelone-transparent.dim_240x80.png",
+      alt: "Angel One",
     },
   ];
 
-  // Worked with logos
-  const workedWithLogos = [
+  const howItWorksSteps = [
+    { num: 1, title: "Watch the Free Lesson", icon: <Play size={24} /> },
     {
-      src: "/assets/uploads/tmpifydv993-1.webp",
-      alt: "Alliance India",
+      num: 2,
+      title: "Open your FREE FYERS Trading Account",
+      icon: <Unlock size={24} />,
     },
     {
-      src: "/assets/uploads/tmpifdwu8ls-2.webp",
-      alt: "FYERS",
+      num: 3,
+      title: "Unlock the MasterTraderX Inner Circle",
+      icon: <Users size={24} />,
     },
     {
-      src: "/assets/uploads/tmplxgtszf3-3.webp",
-      alt: "eLearnMarkets",
+      num: 4,
+      title: "Access all 5 modules instantly",
+      icon: <BookOpen size={24} />,
     },
+  ];
+
+  const fyersbenefits = [
+    "Access to MasterTraderX Inner Circle Training",
+    "Complete 8-Hour Trading Program",
+    "Learn the PAT Framework",
+    "Structured Risk Management Training",
+    "Professional trading platform",
   ];
 
   return (
     <div className="min-h-screen bg-background text-foreground font-body overflow-x-hidden">
       <TrainingModal open={modalOpen} onClose={() => setModalOpen(false)} />
+      <VideoModal
+        open={videoModalOpen}
+        onClose={() => setVideoModalOpen(false)}
+      />
+
+      {/* ============================================================
+          TOP ANNOUNCEMENT BANNER
+          ============================================================ */}
+      <div
+        className="w-full text-center py-2 px-4 text-xs md:text-sm font-body font-semibold tracking-wide"
+        style={{
+          background: "oklch(0.18 0.09 265)",
+          color: "oklch(0.82 0.19 75)",
+          borderBottom: "1px solid oklch(0.72 0.17 65 / 0.25)",
+          position: "relative",
+          zIndex: 60,
+        }}
+        data-ocid="banner.section"
+      >
+        🚀 Mission: Train 1 Lakh Disciplined Traders in India by 2026
+      </div>
 
       {/* ============================================================
           STICKY HEADER
           ============================================================ */}
       <header
-        className="fixed top-0 left-0 right-0 z-50"
+        className="sticky top-0 left-0 right-0 z-50"
         style={{
           background: "oklch(0.99 0.002 250 / 0.95)",
           backdropFilter: "blur(16px)",
@@ -520,22 +552,22 @@ export default function App() {
             </nav>
             <button
               type="button"
-              onClick={openModal}
+              onClick={openVideoModal}
               className="btn-gold rounded-lg px-5 py-2.5 text-sm font-display font-bold"
               data-ocid="header.primary_button"
             >
-              Begin Training
+              Start Free Lesson
             </button>
           </div>
 
           {/* Mobile CTA */}
           <button
             type="button"
-            onClick={() => setMobileMenuOpen((v) => !v)}
+            onClick={openVideoModal}
             className="md:hidden btn-gold rounded-lg px-4 py-2 text-sm font-display font-bold"
             data-ocid="header.mobile.primary_button"
           >
-            Begin Training
+            Start Free Lesson
           </button>
         </div>
       </header>
@@ -555,55 +587,52 @@ export default function App() {
                 backgroundSize: "60px 60px",
               }}
             />
-            {/* Soft gold radial glow top-right */}
             <div
               className="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full blur-3xl pointer-events-none"
               style={{ background: "oklch(0.72 0.17 65 / 0.06)" }}
             />
-            {/* Soft blue glow bottom-left */}
             <div
               className="absolute -bottom-40 -left-40 w-[500px] h-[500px] rounded-full blur-3xl pointer-events-none"
               style={{ background: "oklch(0.55 0.22 245 / 0.05)" }}
             />
           </div>
 
-          <div className="container mx-auto px-4 relative z-10 pt-24 pb-16 md:pt-28 md:pb-20">
+          <div className="container mx-auto px-4 relative z-10 pt-16 pb-16 md:pt-20 md:pb-20">
             <div className="max-w-4xl mx-auto text-center">
-              {/* FREE INITIATIVE — Prominent hero badge */}
-              <div className="fade-up mb-6">
-                <div
-                  className="inline-flex items-center gap-3 px-6 py-3 rounded-2xl text-sm font-display font-bold uppercase tracking-wider"
-                  style={{
-                    background:
-                      "linear-gradient(135deg, oklch(0.72 0.17 65 / 0.18), oklch(0.55 0.22 245 / 0.12))",
-                    border: "2px solid oklch(0.72 0.17 65 / 0.5)",
-                    color: "oklch(0.45 0.16 60)",
-                    boxShadow: "0 4px 20px oklch(0.72 0.17 65 / 0.15)",
-                  }}
-                >
-                  <Award size={18} className="text-gold shrink-0" />
-                  <span>
-                    India's Free Signature Trading Education Initiative
-                  </span>
-                </div>
+              {/* Headline */}
+              <div className="fade-up mb-4">
+                <h1 className="text-4xl md:text-6xl lg:text-7xl font-display font-black gradient-text-hero leading-tight tracking-tight">
+                  FREE MasterTraderX
+                  <br />
+                  <span className="font-serif italic">Trading Program</span>
+                </h1>
               </div>
 
-              {/* Headline */}
-              <h1 className="fade-up delay-1 text-6xl md:text-8xl lg:text-9xl font-display font-black gradient-text-hero mb-6 leading-none tracking-tight">
-                Master
-                <br />
-                <span className="font-serif italic">TraderX</span>
-              </h1>
-
               {/* Subheadline */}
-              <p className="fade-up delay-2 text-xl md:text-2xl text-foreground/80 font-body max-w-2xl mx-auto mb-8 leading-relaxed">
-                A structured{" "}
+              <p className="fade-up delay-1 text-lg md:text-xl text-foreground/80 font-body max-w-2xl mx-auto mb-6 leading-relaxed">
+                Learn how professional traders understand markets using price
+                action, risk management, and discipline.{" "}
                 <strong className="text-gold font-semibold">
-                  8-hour learning program
-                </strong>{" "}
-                designed to help traders build clarity, discipline, and market
-                understanding — responsibly.
+                  Start with the first lesson completely FREE.
+                </strong>
               </p>
+
+              {/* Trust Indicators */}
+              <div className="fade-up delay-2 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 mb-8">
+                {[
+                  "✔ 15+ Years Trading Experience",
+                  "✔ ₹5 Cr Trading Profits",
+                  "✔ Mission: Train 1 Lakh Traders by 2026",
+                ].map((item) => (
+                  <span
+                    key={item}
+                    className="text-sm font-body font-semibold"
+                    style={{ color: "oklch(0.35 0.12 245)" }}
+                  >
+                    {item}
+                  </span>
+                ))}
+              </div>
 
               {/* YouTube Video Embed */}
               <div
@@ -617,7 +646,7 @@ export default function App() {
                   <iframe
                     className="absolute inset-0 w-full h-full"
                     src="https://www.youtube.com/embed/2_rFKK7zGOQ"
-                    title="Master TraderX Program Overview"
+                    title="FREE MasterTraderX Trading Program Overview"
                     frameBorder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
@@ -625,29 +654,37 @@ export default function App() {
                 </div>
               </div>
 
-              {/* Video prompt */}
-              <p className="fade-up delay-4 text-sm text-muted-foreground font-body mb-6 italic">
-                Please watch this message fully to understand the purpose and
-                structure of Master TraderX
-              </p>
-
-              {/* CTA */}
-              <div className="fade-up delay-5">
-                <CTAButton
-                  size="lg"
-                  onClick={openModal}
+              {/* CTA Buttons */}
+              <div className="fade-up delay-4 flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <button
+                  type="button"
+                  onClick={openVideoModal}
+                  className="btn-gold rounded-lg font-display font-bold inline-flex items-center gap-2 px-8 py-4 text-base"
                   data-ocid="hero.primary_button"
                 >
-                  <Play size={20} />
-                  Begin the Master TraderX Training
-                </CTAButton>
+                  <Play size={18} />▶ Start Free Lesson
+                </button>
+                <a
+                  href="https://signup.fyers.in/?utm_source=AP-Leads&utm_medium=AP0218"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-lg font-display font-bold inline-flex items-center gap-2 px-8 py-4 text-base transition-all duration-200 hover:bg-opacity-10"
+                  style={{
+                    border: "2px solid oklch(0.45 0.18 245)",
+                    color: "oklch(0.35 0.18 245)",
+                    background: "oklch(0.45 0.18 245 / 0.06)",
+                  }}
+                  data-ocid="hero.secondary_button"
+                >
+                  Open FREE FYERS Account &amp; Unlock Full Program
+                </a>
               </div>
             </div>
           </div>
         </section>
 
         {/* ============================================================
-            STATS BAR — Deep Blue
+            STATS BAR — White background
             ============================================================ */}
         <section ref={statsRef} className="py-16 relative bg-white">
           <div className="container mx-auto px-4">
@@ -686,97 +723,162 @@ export default function App() {
         </section>
 
         {/* ============================================================
-            WHY MASTER TRADERX EXISTS — White background
+            FREE LESSON SECTION — White background (NEW)
             ============================================================ */}
         <section className="py-20 md:py-28 bg-background">
           <div className="container mx-auto px-4">
-            <SectionHeader
-              title="Why Master TraderX Exists"
-              subtitle="A long-term vision to improve the quality of trading education in India."
-            />
-
-            <div className="grid md:grid-cols-3 gap-6 mb-12">
-              {[
-                {
-                  icon: <BookOpen size={28} className="text-gold-bright" />,
-                  title: "Education Over Excitement",
-                  desc: "Real market understanding built on fundamentals, not get-rich-quick narratives.",
-                  delay: "delay-1",
-                },
-                {
-                  icon: <Shield size={28} className="text-gold-bright" />,
-                  title: "Responsibility Over Dependency",
-                  desc: "Empowering traders to think independently — not follow tips blindly.",
-                  delay: "delay-2",
-                },
-                {
-                  icon: <Target size={28} className="text-gold-bright" />,
-                  title: "Process Over Promises",
-                  desc: "Systems and discipline that work over time, not overnight miracles.",
-                  delay: "delay-3",
-                },
-              ].map((card) => (
-                <div
-                  key={card.title}
-                  className={`rounded-2xl p-8 fade-up ${card.delay} group hover:border-gold/30 transition-all duration-300`}
-                  style={{
-                    background:
-                      "linear-gradient(135deg, oklch(0.97 0.008 260 / 0.9), oklch(0.94 0.015 255 / 0.7))",
-                    border: "1px solid oklch(0.72 0.17 65 / 0.2)",
-                    boxShadow: "0 4px 20px oklch(0.4 0.08 265 / 0.07)",
-                  }}
-                >
+            <SectionHeader title="Start Learning Instantly — Free First Lesson" />
+            <div className="max-w-2xl mx-auto">
+              <div
+                className="rounded-3xl p-8 md:p-12 fade-up"
+                style={{
+                  background:
+                    "linear-gradient(135deg, oklch(0.97 0.008 260), oklch(0.94 0.015 255))",
+                  border: "2px solid oklch(0.72 0.17 65 / 0.4)",
+                  boxShadow: "0 8px 40px oklch(0.72 0.17 65 / 0.1)",
+                }}
+              >
+                <div className="flex items-center gap-3 mb-4">
                   <div
-                    className="w-14 h-14 rounded-xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300"
+                    className="px-4 py-1.5 rounded-full text-sm font-display font-bold"
                     style={{
-                      background: "oklch(0.72 0.17 65 / 0.12)",
-                      border: "1px solid oklch(0.72 0.17 65 / 0.3)",
+                      background: "oklch(0.72 0.17 65)",
+                      color: "white",
                     }}
                   >
-                    {card.icon}
+                    FREE
                   </div>
-                  <h3 className="font-display font-bold text-xl text-foreground mb-3">
-                    {card.title}
-                  </h3>
-                  <p
-                    className="font-body leading-relaxed"
-                    style={{ color: "oklch(0.35 0.06 265)" }}
+                  <div
+                    className="px-4 py-1.5 rounded-full text-sm font-display font-bold"
+                    style={{
+                      background: "oklch(0.55 0.22 245 / 0.12)",
+                      border: "1px solid oklch(0.55 0.22 245 / 0.3)",
+                      color: "oklch(0.35 0.18 245)",
+                    }}
                   >
-                    {card.desc}
-                  </p>
+                    Module 1
+                  </div>
                 </div>
-              ))}
-            </div>
 
-            <div
-              className="fade-up rounded-2xl p-8 text-center max-w-3xl mx-auto"
-              style={{
-                background:
-                  "linear-gradient(135deg, oklch(0.25 0.09 265), oklch(0.30 0.12 255))",
-                border: "1px solid oklch(0.72 0.17 65 / 0.25)",
-                boxShadow: "0 8px 32px oklch(0.22 0.09 265 / 0.15)",
-              }}
-            >
-              <p className="text-white font-body text-lg leading-relaxed">
-                Master TraderX was created with a long-term vision — to improve
-                the quality of trading education in India. By{" "}
-                <strong className="text-gold">2026</strong>, this initiative
-                aims to help one lakh Indian traders build the right foundation
-                in market understanding.
-              </p>
-            </div>
+                <h3
+                  className="text-2xl md:text-3xl font-display font-black mb-3"
+                  style={{ color: "oklch(0.2 0.07 265)" }}
+                >
+                  Trading Mindset &amp; Market Reality
+                </h3>
 
-            <div className="fade-up flex flex-col sm:flex-row gap-4 justify-center mt-10">
-              <CTAButton onClick={openModal}>
-                <Play size={18} />
-                Begin the Master TraderX Training
-              </CTAButton>
+                <p
+                  className="font-body text-base mb-5 font-semibold"
+                  style={{ color: "oklch(0.3 0.06 265)" }}
+                >
+                  You will learn:
+                </p>
+
+                <ul className="space-y-3 mb-8">
+                  {[
+                    "Why most traders lose money",
+                    "Psychology traps beginners face",
+                    "The mindset required for consistency",
+                  ].map((item) => (
+                    <li
+                      key={item}
+                      className="flex items-start gap-3 font-body"
+                      style={{ color: "oklch(0.25 0.06 265)" }}
+                    >
+                      <CheckCircle2
+                        size={20}
+                        className="text-gold shrink-0 mt-0.5"
+                      />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+
+                <button
+                  type="button"
+                  onClick={openVideoModal}
+                  className="btn-gold rounded-xl font-display font-bold inline-flex items-center gap-2 px-8 py-4 text-base w-full justify-center"
+                  data-ocid="free_lesson.primary_button"
+                >
+                  <Play size={18} />▶ Start Free Lesson
+                </button>
+              </div>
             </div>
           </div>
         </section>
 
         {/* ============================================================
-            ABOUT KIRTI AGRAWAL — Deep Blue
+            TRADER PROBLEM SECTION — Light blue background (NEW)
+            ============================================================ */}
+        <section
+          className="py-20 md:py-28"
+          style={{
+            background:
+              "linear-gradient(135deg, oklch(0.95 0.025 245), oklch(0.92 0.030 250))",
+          }}
+          data-ocid="problems.section"
+        >
+          <div className="container mx-auto px-4">
+            <SectionHeader title="Why Most Traders Struggle" />
+
+            <div className="max-w-2xl mx-auto">
+              <p
+                className="fade-up text-lg font-body text-center mb-8"
+                style={{ color: "oklch(0.3 0.06 265)" }}
+              >
+                Most traders start with excitement but quickly face confusion.
+              </p>
+
+              <div className="space-y-4 mb-10">
+                {[
+                  "Random strategies from YouTube",
+                  "Emotional trading decisions",
+                  "Poor risk management",
+                  "Overtrading after losses",
+                  "Following tips without understanding",
+                ].map((problem, i) => (
+                  <div
+                    key={problem}
+                    className={`flex items-center gap-4 p-5 rounded-xl fade-up delay-${i + 1}`}
+                    style={{
+                      background: "oklch(0.99 0.002 250 / 0.9)",
+                      border: "1px solid oklch(0.70 0.22 25 / 0.25)",
+                      boxShadow: "0 2px 12px oklch(0.4 0.08 265 / 0.06)",
+                    }}
+                  >
+                    <XCircle
+                      size={22}
+                      style={{ color: "oklch(0.65 0.22 25)" }}
+                      className="shrink-0"
+                    />
+                    <span
+                      className="font-body"
+                      style={{ color: "oklch(0.25 0.06 265)" }}
+                    >
+                      {problem}
+                    </span>
+                  </div>
+                ))}
+              </div>
+
+              <div
+                className="fade-up rounded-2xl p-6 text-center"
+                style={{
+                  background:
+                    "linear-gradient(135deg, oklch(0.22 0.08 265), oklch(0.28 0.12 255))",
+                  border: "1px solid oklch(0.72 0.17 65 / 0.3)",
+                }}
+              >
+                <p className="text-white font-display font-bold text-xl">
+                  MasterTraderX was designed to solve these exact problems.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ============================================================
+            ABOUT KIRTI AGRAWAL — From Losses to Consistency (MOVED UP)
             ============================================================ */}
         <section
           id="about"
@@ -787,7 +889,7 @@ export default function App() {
           }}
         >
           <div className="container mx-auto px-4">
-            <SectionHeader title="About Kirti Agrawal" light />
+            <SectionHeader title="From Losses to Consistency" light />
 
             <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start max-w-6xl mx-auto">
               {/* Left — image + achievement cards */}
@@ -844,56 +946,6 @@ export default function App() {
                     </div>
                   ))}
                 </div>
-
-                {/* Featured on — with logos */}
-                <div
-                  className="rounded-xl p-5"
-                  style={{
-                    background: "oklch(0.30 0.08 265 / 0.7)",
-                    border: "1px solid oklch(0.40 0.10 265 / 0.5)",
-                  }}
-                >
-                  <p
-                    className="text-xs uppercase tracking-widest font-body font-semibold mb-4"
-                    style={{ color: "oklch(0.82 0.19 75)" }}
-                  >
-                    Featured on
-                  </p>
-                  <div className="flex flex-wrap gap-3">
-                    {featuredLogos.map((logo) => (
-                      <CompanyLogo
-                        key={logo.alt}
-                        src={logo.src}
-                        alt={logo.alt}
-                      />
-                    ))}
-                  </div>
-                </div>
-
-                {/* Also worked with — with logos */}
-                <div
-                  className="rounded-xl p-5"
-                  style={{
-                    background: "oklch(0.30 0.08 265 / 0.7)",
-                    border: "1px solid oklch(0.40 0.10 265 / 0.5)",
-                  }}
-                >
-                  <p
-                    className="text-xs uppercase tracking-widest font-body font-semibold mb-4"
-                    style={{ color: "oklch(0.82 0.19 75)" }}
-                  >
-                    Also worked with
-                  </p>
-                  <div className="flex flex-wrap gap-3">
-                    {workedWithLogos.map((logo) => (
-                      <CompanyLogo
-                        key={logo.alt}
-                        src={logo.src}
-                        alt={logo.alt}
-                      />
-                    ))}
-                  </div>
-                </div>
               </div>
 
               {/* Right — bio text */}
@@ -907,47 +959,58 @@ export default function App() {
                       border: "1px solid oklch(0.72 0.17 65 / 0.4)",
                     }}
                   >
-                    Full-Time Trader & Educator
+                    Full-Time Trader &amp; Educator
                   </Badge>
+
                   <p className="text-white font-body text-lg leading-relaxed mb-4">
-                    Kirti Agrawal is a full-time trader, trading educator, and
-                    market mentor with over{" "}
-                    <strong className="text-gold">
-                      15 years of experience
-                    </strong>{" "}
-                    in Indian equity markets.
+                    Kirti Agrawal began trading at{" "}
+                    <strong className="text-gold">19 years old.</strong>
                   </p>
-                  <p className="text-white/80 font-body leading-relaxed">
-                    After struggling for nearly eight years and experiencing
-                    losses of close to{" "}
-                    <strong className="text-white">₹20 lakhs</strong>, Kirti
-                    rebuilt her trading approach through discipline, psychology,
-                    and structured systems.
+                  <p className="text-white/80 font-body leading-relaxed mb-4">
+                    After early success, she lost nearly{" "}
+                    <strong className="text-white">₹20 lakhs</strong> over
+                    several years.
+                  </p>
+                  <p className="text-white/80 font-body leading-relaxed mb-4">
+                    Instead of quitting, she spent years studying:
+                  </p>
+                  <ul className="space-y-2 mb-4">
+                    {[
+                      "trading psychology",
+                      "price behavior",
+                      "structured trading systems",
+                    ].map((item) => (
+                      <li
+                        key={item}
+                        className="flex items-center gap-3 text-white/80 font-body"
+                      >
+                        <span
+                          className="w-2 h-2 rounded-full shrink-0"
+                          style={{ background: "oklch(0.82 0.19 75)" }}
+                        />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                  <p className="text-white/80 font-body leading-relaxed mb-4">
+                    This journey led to the development of the{" "}
+                    <strong className="text-gold">PAT Framework.</strong>
+                  </p>
+                  <p className="text-white font-body leading-relaxed">
+                    Today she is a full-time trader and mentor with{" "}
+                    <strong className="text-gold">
+                      15+ years market experience.
+                    </strong>
                   </p>
                 </div>
 
                 <div className="section-divider" />
 
-                <div className="space-y-4">
-                  {aboutHighlights.map((item) => (
-                    <div
-                      key={item.text}
-                      className="flex items-start gap-4 p-4 rounded-xl"
-                      style={{ background: "oklch(0.32 0.1 265 / 0.6)" }}
-                    >
-                      <div className="text-gold shrink-0 mt-0.5">
-                        {item.icon}
-                      </div>
-                      <p className="text-white font-body">{item.text}</p>
-                    </div>
-                  ))}
-                </div>
-
                 <blockquote className="border-l-4 border-gold pl-6 py-2">
                   <p className="text-white font-serif italic text-lg leading-relaxed">
-                    "Master TraderX represents the distillation of her
-                    real-market experience into a structured learning
-                    initiative."
+                    "FREE MasterTraderX Trading Program represents the
+                    distillation of her real-market experience into a structured
+                    learning initiative."
                   </p>
                 </blockquote>
               </div>
@@ -956,13 +1019,30 @@ export default function App() {
         </section>
 
         {/* ============================================================
+            FEATURED ON — Unified logos section
+            ============================================================ */}
+        <section
+          className="py-16 md:py-20 bg-background"
+          data-ocid="featured.section"
+        >
+          <div className="container mx-auto px-4">
+            <SectionHeader title="Featured On" />
+            <div className="flex flex-wrap gap-4 justify-center items-center max-w-5xl mx-auto fade-up">
+              {allLogos.map((logo) => (
+                <CompanyLogo key={logo.alt} src={logo.src} alt={logo.alt} />
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ============================================================
             WHAT YOU WILL LEARN — White background
             ============================================================ */}
-        <section id="learn" className="py-20 md:py-28 bg-background">
+        <section id="learn" className="py-20 md:py-28 bg-white">
           <div className="container mx-auto px-4">
             <SectionHeader
               title="What You Will Learn"
-              subtitle="Inside Master TraderX"
+              subtitle="Inside MasterTraderX you will learn:"
             />
 
             <div className="max-w-4xl mx-auto">
@@ -997,10 +1077,14 @@ export default function App() {
                   <span className="text-gold">📌</span>
                   All content is educational in nature.
                 </p>
-                <CTAButton onClick={openModal}>
-                  <ChevronRight size={18} />
-                  Begin the Master TraderX Training
-                </CTAButton>
+                <button
+                  type="button"
+                  onClick={openVideoModal}
+                  className="btn-gold rounded-lg font-display font-bold inline-flex items-center gap-2 px-7 py-3.5 text-base"
+                  data-ocid="learn.primary_button"
+                >
+                  <ChevronRight size={18} />▶ Start Free Lesson
+                </button>
               </div>
             </div>
           </div>
@@ -1017,26 +1101,29 @@ export default function App() {
           }}
         >
           <div className="container mx-auto px-4">
-            <SectionHeader title="The Three Pillars of Master TraderX" light />
+            <SectionHeader title="The Three Pillars of MasterTraderX" light />
 
             <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto mb-10">
               {[
                 {
                   icon: <Brain size={36} className="text-gold-bright" />,
+                  num: "1️⃣",
                   title: "Trading Psychology",
-                  desc: "Understanding discipline, patience, emotional control, and decision-making",
+                  desc: "Discipline, patience, emotional control",
                   delay: "delay-1",
                 },
                 {
                   icon: <Shield size={36} className="text-gold-bright" />,
+                  num: "2️⃣",
                   title: "Risk Management",
-                  desc: "Capital protection, position sizing, and longevity in markets.",
+                  desc: "Capital protection and position sizing",
                   delay: "delay-2",
                 },
                 {
                   icon: <BarChart2 size={36} className="text-gold-bright" />,
+                  num: "3️⃣",
                   title: "Structured Trading System",
-                  desc: "A logical framework to observe and understand price behaviour",
+                  desc: "Logical framework to understand price behavior",
                   delay: "delay-3",
                 },
               ].map((pillar) => (
@@ -1050,6 +1137,7 @@ export default function App() {
                     boxShadow: "0 4px 24px oklch(0.15 0.06 265 / 0.3)",
                   }}
                 >
+                  <div className="text-3xl mb-3">{pillar.num}</div>
                   <div
                     className="w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300"
                     style={{
@@ -1070,10 +1158,14 @@ export default function App() {
             </div>
 
             <div className="fade-up text-center">
-              <CTAButton onClick={openModal}>
-                <ArrowRight size={18} />
-                Begin the Master TraderX Training
-              </CTAButton>
+              <button
+                type="button"
+                onClick={openVideoModal}
+                className="btn-gold rounded-lg font-display font-bold inline-flex items-center gap-2 px-7 py-3.5 text-base"
+                data-ocid="pillars.primary_button"
+              >
+                <ArrowRight size={18} />▶ Start Free Lesson
+              </button>
             </div>
           </div>
         </section>
@@ -1121,12 +1213,13 @@ export default function App() {
                     className="font-body text-lg leading-relaxed mb-8"
                     style={{ color: "oklch(0.28 0.07 265)" }}
                   >
-                    Inside Master TraderX, learners are introduced to the{" "}
+                    Inside FREE MasterTraderX Trading Program, learners are
+                    introduced to the{" "}
                     <strong className="text-gold">PAT Framework</strong>, which
                     focuses on:
                   </p>
 
-                  <div className="grid md:grid-cols-2 gap-3 mb-8">
+                  <div className="grid md:grid-cols-2 gap-3 mb-6">
                     {patItems.map((item, i) => (
                       <div
                         key={item}
@@ -1147,15 +1240,32 @@ export default function App() {
                     ))}
                   </div>
 
-                  <p className="text-muted-foreground font-body text-sm italic mb-8">
-                    This framework is taught for educational understanding, not
-                    as trade recommendations.
-                  </p>
+                  {/* Educational note */}
+                  <div
+                    className="fade-up rounded-xl p-4 mb-8 flex items-start gap-3"
+                    style={{
+                      background: "oklch(0.72 0.17 65 / 0.08)",
+                      border: "1px solid oklch(0.72 0.17 65 / 0.2)",
+                    }}
+                  >
+                    <span className="text-gold text-lg shrink-0">📌</span>
+                    <p
+                      className="font-body text-sm italic"
+                      style={{ color: "oklch(0.35 0.07 265)" }}
+                    >
+                      This framework is taught for educational understanding
+                      only.
+                    </p>
+                  </div>
 
-                  <CTAButton onClick={openModal}>
-                    <ChevronRight size={18} />
-                    Begin the Master TraderX Training
-                  </CTAButton>
+                  <button
+                    type="button"
+                    onClick={openVideoModal}
+                    className="btn-gold rounded-lg font-display font-bold inline-flex items-center gap-2 px-7 py-3.5 text-base"
+                    data-ocid="pat.primary_button"
+                  >
+                    <ChevronRight size={18} />▶ Start Free Lesson
+                  </button>
                 </div>
               </div>
             </div>
@@ -1240,19 +1350,27 @@ export default function App() {
                       {mod.num}
                     </span>
                     <div>
-                      <div className="flex items-center gap-2 mb-1">
-                        <h3
-                          className="font-display font-bold"
-                          style={{
-                            color: mod.free ? "white" : "oklch(0.85 0.04 265)",
-                          }}
-                        >
-                          {mod.title}
-                        </h3>
-                      </div>
-                      {mod.free ? (
+                      <h3
+                        className="font-display font-bold mb-1"
+                        style={{
+                          color: mod.free ? "white" : "oklch(0.85 0.04 265)",
+                        }}
+                      >
+                        {mod.title}
+                      </h3>
+                      <p
+                        className="text-sm font-body"
+                        style={{
+                          color: mod.free
+                            ? "oklch(0.82 0.19 75)"
+                            : "oklch(0.65 0.05 265)",
+                        }}
+                      >
+                        {mod.subtitle}
+                      </p>
+                      {mod.free && (
                         <span
-                          className="text-xs font-display font-bold px-2 py-0.5 rounded-full"
+                          className="text-xs font-display font-bold px-2 py-0.5 rounded-full mt-1 inline-block"
                           style={{
                             background: "oklch(0.72 0.17 65 / 0.25)",
                             color: "oklch(0.82 0.19 75)",
@@ -1261,19 +1379,12 @@ export default function App() {
                         >
                           FREE
                         </span>
-                      ) : (
-                        <span
-                          className="text-xs font-body flex items-center gap-1"
-                          style={{ color: "oklch(0.65 0.05 265)" }}
-                        >
-                          <Lock size={10} /> Unlock by opening FYERS account
-                        </span>
                       )}
                     </div>
                   </div>
                   <button
                     type="button"
-                    onClick={openModal}
+                    onClick={mod.free ? openVideoModal : openModal}
                     className="btn-gold-outline rounded-lg px-4 py-2 text-sm font-display font-semibold shrink-0 whitespace-nowrap flex items-center gap-1.5"
                     style={
                       mod.free
@@ -1303,23 +1414,142 @@ export default function App() {
               ))}
             </div>
 
-            {/* Bottom CTA after modules */}
+            {/* Bottom message after modules */}
             <div className="max-w-3xl mx-auto mt-8 fade-up">
               <div
-                className="rounded-xl px-6 py-5 flex flex-col sm:flex-row items-center gap-4 justify-between"
+                className="rounded-xl px-6 py-5 text-center"
                 style={{
-                  background: "oklch(0.30 0.08 265 / 0.8)",
-                  border: "1px solid oklch(0.45 0.12 265 / 0.4)",
+                  background: "oklch(0.72 0.17 65 / 0.12)",
+                  border: "1px solid oklch(0.72 0.17 65 / 0.35)",
                 }}
               >
-                <p className="text-white/80 font-body text-sm text-center sm:text-left">
-                  Open a free FYERS account to get instant access to all 5
-                  modules.
+                <p className="text-white font-body text-sm">
+                  To unlock Modules 2–5, open a{" "}
+                  <strong className="text-gold">
+                    FREE FYERS Trading &amp; Demat Account.
+                  </strong>
                 </p>
-                <CTAButton onClick={openModal} size="sm">
-                  <Unlock size={14} />
-                  Unlock All Modules
-                </CTAButton>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ============================================================
+            HOW MASTERTRADERX WORKS — White background (NEW)
+            ============================================================ */}
+        <section
+          className="py-20 md:py-28 bg-background"
+          data-ocid="how_it_works.section"
+        >
+          <div className="container mx-auto px-4">
+            <SectionHeader title="How MasterTraderX Works" />
+
+            <div className="max-w-5xl mx-auto">
+              <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                {howItWorksSteps.map((step, i) => (
+                  <div key={step.num} className="relative">
+                    <div
+                      className={`rounded-2xl p-6 text-center fade-up delay-${i + 1} h-full`}
+                      style={{
+                        background:
+                          "linear-gradient(135deg, oklch(0.97 0.008 260), oklch(0.94 0.015 255))",
+                        border: "1px solid oklch(0.72 0.17 65 / 0.2)",
+                        boxShadow: "0 4px 20px oklch(0.4 0.08 265 / 0.06)",
+                      }}
+                    >
+                      {/* Step number circle */}
+                      <div
+                        className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-4 text-white font-display font-black text-xl"
+                        style={{
+                          background:
+                            "linear-gradient(135deg, oklch(0.25 0.09 265), oklch(0.32 0.12 255))",
+                          border: "2px solid oklch(0.72 0.17 65 / 0.4)",
+                        }}
+                      >
+                        {step.num}
+                      </div>
+                      {/* Icon */}
+                      <div className="text-gold flex justify-center mb-3">
+                        {step.icon}
+                      </div>
+                      <p
+                        className="font-body font-semibold text-sm leading-relaxed"
+                        style={{ color: "oklch(0.22 0.07 265)" }}
+                      >
+                        {step.title}
+                      </p>
+                    </div>
+                    {/* Arrow connector */}
+                    {i < howItWorksSteps.length - 1 && (
+                      <div
+                        className="hidden lg:flex absolute -right-3 top-1/2 -translate-y-1/2 z-10 items-center justify-center w-6 h-6 rounded-full"
+                        style={{
+                          background: "oklch(0.72 0.17 65)",
+                          color: "white",
+                        }}
+                      >
+                        <ChevronRight size={14} />
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ============================================================
+            ACCOUNT OPENING BENEFITS — Deep Blue (NEW)
+            ============================================================ */}
+        <section
+          className="py-20 md:py-28 relative"
+          style={{
+            background:
+              "linear-gradient(135deg, oklch(0.22 0.08 265), oklch(0.28 0.12 255))",
+          }}
+          data-ocid="fyers_benefits.section"
+        >
+          <div className="container mx-auto px-4">
+            <SectionHeader
+              title="Why Open a FREE FYERS Account Through MasterTraderX"
+              light
+            />
+
+            <div className="max-w-2xl mx-auto">
+              <div className="space-y-4 mb-8">
+                {fyersbenefits.map((benefit, i) => (
+                  <div
+                    key={benefit}
+                    className={`flex items-center gap-4 p-5 rounded-xl fade-up delay-${i + 1}`}
+                    style={{
+                      background: "oklch(0.30 0.08 265 / 0.8)",
+                      border: "1px solid oklch(0.42 0.10 265 / 0.5)",
+                    }}
+                  >
+                    <CheckCircle2 size={22} className="text-gold shrink-0" />
+                    <span className="text-white font-body">✔ {benefit}</span>
+                  </div>
+                ))}
+              </div>
+
+              <div className="fade-up text-center">
+                <p
+                  className="font-body text-sm mb-6"
+                  style={{ color: "oklch(0.75 0.05 265)" }}
+                >
+                  Opening your account takes less than 5 minutes using Aadhaar
+                  OTP.
+                </p>
+                <a
+                  href="https://signup.fyers.in/?utm_source=AP-Leads&utm_medium=AP0218"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-gold rounded-xl font-display font-bold inline-flex items-center gap-2 px-10 py-5 text-lg"
+                  data-ocid="fyers_benefits.primary_button"
+                >
+                  <Unlock size={20} />
+                  Open FREE FYERS Account
+                </a>
               </div>
             </div>
           </div>
@@ -1436,7 +1666,7 @@ export default function App() {
           <div className="container mx-auto px-4">
             <SectionHeader
               title="What Traders Say"
-              subtitle="About the Master TraderX Approach"
+              subtitle="About the FREE MasterTraderX Trading Program"
               light
             />
 
@@ -1499,10 +1729,15 @@ export default function App() {
             </div>
 
             <div className="fade-up text-center">
-              <CTAButton onClick={openModal} size="lg">
+              <button
+                type="button"
+                onClick={openVideoModal}
+                className="btn-gold rounded-lg font-display font-bold inline-flex items-center gap-2 px-10 py-5 text-lg"
+                data-ocid="testimonials.primary_button"
+              >
                 <Play size={20} />
                 Begin Your Learning Journey
-              </CTAButton>
+              </button>
             </div>
           </div>
         </section>
@@ -1524,7 +1759,7 @@ export default function App() {
               style={{ background: "oklch(0.72 0.17 65 / 0.12)" }}
             />
           </div>
-          {/* Yellow accent strip top */}
+          {/* Gold accent strip top */}
           <div
             className="absolute top-0 left-0 right-0 h-1"
             style={{
@@ -1560,18 +1795,35 @@ export default function App() {
                 <br />
                 Trading Foundation?
               </h2>
-              <p className="text-white font-body text-xl mb-10 leading-relaxed">
-                Join thousands of Indian traders learning the right way.
+              <p className="text-white font-body text-lg mb-10 leading-relaxed max-w-xl mx-auto">
+                Start your journey with the free MasterTraderX lesson today.
+                Unlock the full program by opening your FREE FYERS trading
+                account.
               </p>
-              <CTAButton
-                size="lg"
-                onClick={openModal}
-                className="animate-pulse-gold"
-                data-ocid="cta.primary_button"
-              >
-                <Play size={22} />
-                Begin the Master TraderX Training
-              </CTAButton>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <button
+                  type="button"
+                  onClick={openVideoModal}
+                  className="btn-gold rounded-lg font-display font-bold inline-flex items-center gap-2 px-10 py-5 text-lg animate-pulse-gold"
+                  data-ocid="cta.primary_button"
+                >
+                  <Play size={22} />▶ Start Free Lesson
+                </button>
+                <a
+                  href="https://signup.fyers.in/?utm_source=AP-Leads&utm_medium=AP0218"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-lg font-display font-bold inline-flex items-center gap-2 px-10 py-5 text-lg transition-all duration-200"
+                  style={{
+                    border: "2px solid oklch(0.72 0.17 65 / 0.7)",
+                    color: "oklch(0.82 0.19 75)",
+                    background: "oklch(0.72 0.17 65 / 0.1)",
+                  }}
+                  data-ocid="cta.secondary_button"
+                >
+                  Open FYERS Account
+                </a>
+              </div>
             </div>
           </div>
         </section>
@@ -1612,9 +1864,9 @@ export default function App() {
               className="font-body text-sm max-w-2xl leading-relaxed"
               style={{ color: "oklch(0.65 0.04 265)" }}
             >
-              Master TraderX is a free educational initiative. All content is
-              for learning purposes only. This is not financial advice. Trading
-              in financial markets involves risk.
+              MasterTraderX is a free educational initiative. All content is for
+              learning purposes only. This is not financial advice. Trading
+              involves risk.
             </p>
 
             <div className="section-divider w-full" />
@@ -1633,9 +1885,11 @@ export default function App() {
         </div>
       </footer>
 
-      {/* Floating WhatsApp Button */}
+      {/* ============================================================
+          FLOATING WHATSAPP PILL BUTTON
+          ============================================================ */}
       <a
-        href="https://wa.me/919827140374"
+        href="https://wa.me/919171166445"
         target="_blank"
         rel="noopener noreferrer"
         data-ocid="whatsapp.button"
@@ -1644,20 +1898,24 @@ export default function App() {
           bottom: "24px",
           right: "24px",
           zIndex: 9999,
-          width: "56px",
-          height: "56px",
-          borderRadius: "50%",
+          borderRadius: "9999px",
           backgroundColor: "#25D366",
           display: "flex",
           alignItems: "center",
-          justifyContent: "center",
+          gap: "10px",
+          padding: "12px 20px",
           boxShadow: "0 4px 16px rgba(37, 211, 102, 0.45)",
           transition: "transform 0.2s ease, box-shadow 0.2s ease",
           textDecoration: "none",
+          color: "white",
+          fontFamily: "inherit",
+          fontWeight: 600,
+          fontSize: "14px",
+          whiteSpace: "nowrap",
         }}
         onMouseEnter={(e) => {
           (e.currentTarget as HTMLAnchorElement).style.transform =
-            "scale(1.12)";
+            "scale(1.05)";
           (e.currentTarget as HTMLAnchorElement).style.boxShadow =
             "0 8px 24px rgba(37, 211, 102, 0.6)";
         }}
@@ -1671,28 +1929,14 @@ export default function App() {
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
           fill="white"
-          width="30"
-          height="30"
+          width="22"
+          height="22"
           role="img"
           aria-label="WhatsApp"
         >
           <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
         </svg>
-        <span
-          style={{
-            position: "absolute",
-            width: "1px",
-            height: "1px",
-            padding: 0,
-            margin: "-1px",
-            overflow: "hidden",
-            clip: "rect(0,0,0,0)",
-            whiteSpace: "nowrap",
-            borderWidth: 0,
-          }}
-        >
-          Chat on WhatsApp
-        </span>
+        💬 Chat With Us on WhatsApp
       </a>
     </div>
   );
