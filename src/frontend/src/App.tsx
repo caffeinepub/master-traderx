@@ -1,3 +1,9 @@
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { Badge } from "@/components/ui/badge";
 import {
   Dialog,
@@ -221,7 +227,7 @@ function VideoModal({
       >
         <DialogHeader className="flex flex-row items-center justify-between pb-3">
           <DialogTitle className="font-display text-lg gradient-text-gold">
-            Module 1: Trading Mindset &amp; Market Reality
+            Module 1: The 8 Powerful Price Action Setups That Work in Any Market
           </DialogTitle>
           <button
             type="button"
@@ -240,7 +246,7 @@ function VideoModal({
         >
           <iframe
             className="absolute inset-0 w-full h-full"
-            src="https://www.youtube.com/embed/2_rFKK7zGOQ?autoplay=1"
+            src="https://www.youtube.com/embed/fj_JGrRMIcQ?autoplay=1"
             title="FREE MasterTraderX Trading Program — Free Lesson"
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -375,7 +381,7 @@ export default function App() {
     {
       num: "01",
       title: "Module 1",
-      subtitle: "Free – Start Now",
+      subtitle: "The 8 Powerful Price Action Setups — Free 2-Hour Masterclass",
       free: true,
     },
     {
@@ -410,21 +416,17 @@ export default function App() {
     { src: "/assets/uploads/tmp2ulld9by-2.jpg", alt: "ET Now" },
     { src: "/assets/uploads/tmptlyrodkx-3.webp", alt: "Zee Business" },
     { src: "/assets/uploads/tmpgmo8bqjn-4.webp", alt: "CNBC" },
-    { src: "/assets/uploads/tmpifydv993-1.webp", alt: "Alliance India" },
     { src: "/assets/uploads/tmpifdwu8ls-2.webp", alt: "FYERS" },
     { src: "/assets/uploads/tmplxgtszf3-3.webp", alt: "eLearnMarkets" },
     {
-      src: "/assets/generated/logo-moneycontrol-transparent.dim_240x80.png",
-      alt: "Moneycontrol",
-    },
-    {
-      src: "/assets/generated/logo-aliceblue-transparent.dim_240x80.png",
-      alt: "Alice Blue",
-    },
-    {
-      src: "/assets/generated/logo-angelone-transparent.dim_240x80.png",
+      src: "/assets/uploads/8a2eb7ff-7b5d-4f63-a1a7-3e75c96cb945-1.png",
       alt: "Angel One",
     },
+    {
+      src: "/assets/uploads/d335b274-fe68-4158-bcfd-275d47bd3ff9-2.png",
+      alt: "Moneycontrol",
+    },
+    { src: "/assets/uploads/download-11--3.png", alt: "Alice Blue" },
   ];
 
   const howItWorksSteps = [
@@ -689,7 +691,7 @@ export default function App() {
                 >
                   <iframe
                     className="absolute inset-0 w-full h-full"
-                    src="https://www.youtube.com/embed/2_rFKK7zGOQ"
+                    src="https://www.youtube.com/embed/fj_JGrRMIcQ"
                     title="FREE MasterTraderX Trading Program Overview"
                     frameBorder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -808,21 +810,34 @@ export default function App() {
                   className="text-2xl md:text-3xl font-display font-black mb-3"
                   style={{ color: "oklch(0.2 0.07 265)" }}
                 >
-                  Trading Mindset &amp; Market Reality
+                  The 8 Powerful Price Action Setups That Work in Any Market
                 </h3>
+
+                <p
+                  className="font-body text-sm mb-4"
+                  style={{ color: "oklch(0.35 0.06 265)" }}
+                >
+                  Discover the 8 core Price Action setups that professional
+                  traders use to identify high-probability opportunities —
+                  designed to work in all market conditions, whether the market
+                  is trending, consolidating, or volatile.
+                </p>
 
                 <p
                   className="font-body text-base mb-5 font-semibold"
                   style={{ color: "oklch(0.3 0.06 265)" }}
                 >
-                  You will learn:
+                  In This 2-Hour Free Lesson, You Will Learn:
                 </p>
 
                 <ul className="space-y-3 mb-8">
                   {[
-                    "Why most traders lose money",
-                    "Psychology traps beginners face",
-                    "The mindset required for consistency",
+                    "The 8 high-probability Price Action setups that work across all market conditions",
+                    "How to use these setups for Intraday, Swing, and Positional trading",
+                    "The exact market conditions where these setups work best",
+                    "The psychology behind each setup so you understand why price moves",
+                    "Real market chart examples showing how these setups played out",
+                    "How to start spotting high-probability trades with confidence",
                   ].map((item) => (
                     <li
                       key={item}
@@ -837,6 +852,36 @@ export default function App() {
                     </li>
                   ))}
                 </ul>
+
+                <div
+                  className="rounded-xl p-4 mb-6"
+                  style={{
+                    background: "oklch(0.55 0.22 245 / 0.06)",
+                    border: "1px solid oklch(0.55 0.22 245 / 0.2)",
+                  }}
+                >
+                  <p
+                    className="font-display font-bold text-sm mb-2"
+                    style={{ color: "oklch(0.35 0.12 245)" }}
+                  >
+                    🎥 For the best learning experience:
+                  </p>
+                  <ul className="space-y-1">
+                    {[
+                      "Watch the video at 1.5× speed",
+                      "Take notes while observing the live chart examples",
+                      "Focus on understanding the logic behind each setup",
+                    ].map((tip) => (
+                      <li
+                        key={tip}
+                        className="font-body text-sm"
+                        style={{ color: "oklch(0.4 0.08 265)" }}
+                      >
+                        • {tip}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
 
                 <button
                   type="button"
@@ -1967,6 +2012,273 @@ export default function App() {
             </div>
           </div>
         </section>
+
+        {/* ============================================================
+          FAQ SECTION
+          ============================================================ */}
+        <section
+          className="py-24 relative overflow-hidden"
+          style={{ background: "oklch(0.97 0.01 260)" }}
+        >
+          <div
+            className="absolute inset-0 opacity-30"
+            style={{
+              backgroundImage:
+                "radial-gradient(circle at 20% 50%, oklch(0.45 0.18 265 / 0.08) 0%, transparent 50%), radial-gradient(circle at 80% 20%, oklch(0.72 0.17 65 / 0.06) 0%, transparent 50%)",
+            }}
+          />
+          <div className="container mx-auto px-4 relative z-10">
+            <div className="text-center mb-14 fade-up">
+              <div
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-body font-semibold uppercase tracking-widest mb-6"
+                style={{
+                  background: "oklch(0.45 0.18 265 / 0.08)",
+                  border: "1px solid oklch(0.45 0.18 265 / 0.18)",
+                  color: "oklch(0.38 0.15 265)",
+                }}
+              >
+                <BookOpen size={14} />
+                Got Questions
+              </div>
+              <h2
+                className="text-4xl md:text-5xl font-display font-black mb-4 leading-tight"
+                style={{ color: "oklch(0.22 0.08 265)" }}
+              >
+                Frequently Asked{" "}
+                <span
+                  style={{
+                    background:
+                      "linear-gradient(135deg, oklch(0.55 0.2 265), oklch(0.72 0.17 65))",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                    backgroundClip: "text",
+                  }}
+                >
+                  Questions
+                </span>
+              </h2>
+              <p
+                className="text-lg font-body max-w-xl mx-auto"
+                style={{ color: "oklch(0.45 0.06 265)" }}
+              >
+                Everything you need to know about the MasterTraderX program.
+              </p>
+            </div>
+            <div className="max-w-3xl mx-auto fade-up">
+              <Accordion
+                type="single"
+                collapsible
+                className="space-y-3"
+                data-ocid="faq.panel"
+              >
+                {[
+                  {
+                    q: "Is this program promising profits or guaranteed returns?",
+                    a: (
+                      <>
+                        <p className="mb-3">
+                          No. MasterTraderX does not promise profits or
+                          guaranteed returns. Trading always involves risk. The
+                          purpose of this program is to help traders develop:
+                        </p>
+                        <ul className="space-y-1 mb-3 ml-1">
+                          {[
+                            "Learning a winning trading system",
+                            "Risk management discipline",
+                            "Structured decision making",
+                            "Emotional control while trading",
+                          ].map((item) => (
+                            <li key={item} className="flex items-start gap-2">
+                              <span style={{ color: "oklch(0.72 0.17 65)" }}>
+                                ▸
+                              </span>
+                              {item}
+                            </li>
+                          ))}
+                        </ul>
+                        <p>
+                          The goal is to build a strong trading foundation, not
+                          unrealistic expectations.
+                        </p>
+                      </>
+                    ),
+                  },
+                  {
+                    q: "Is the MasterTraderX program really free?",
+                    a: "Yes. Module 1 is completely free, and you can start learning immediately. To unlock Modules 2–5 and the full 8-hour program, you simply need to open a FREE FYERS Trading & Demat account through our link.",
+                  },
+                  {
+                    q: "What exactly will I learn in the MasterTraderX program?",
+                    a: (
+                      <>
+                        <p className="mb-3">
+                          Inside the program you will learn:
+                        </p>
+                        <ul className="space-y-1 mb-3 ml-1">
+                          {[
+                            "How professional traders understand market structure",
+                            "The PAT Framework for logical price action analysis",
+                            "8 powerful price action setups",
+                            "Risk management and capital protection",
+                            "Trading psychology and discipline",
+                            "CPR and moving averages for market context",
+                          ].map((item) => (
+                            <li key={item} className="flex items-start gap-2">
+                              <span style={{ color: "oklch(0.72 0.17 65)" }}>
+                                ▸
+                              </span>
+                              {item}
+                            </li>
+                          ))}
+                        </ul>
+                        <p>
+                          The focus is on understanding markets logically
+                          instead of guessing trades.
+                        </p>
+                      </>
+                    ),
+                  },
+                  {
+                    q: "What is the MasterTraderX Inner Circle?",
+                    a: (
+                      <>
+                        <p className="mb-3">
+                          The MasterTraderX Inner Circle is a dedicated learning
+                          environment for traders who unlock the full program.
+                          Inside the Inner Circle, members get access to:
+                        </p>
+                        <ul className="space-y-1 mb-3 ml-1">
+                          {[
+                            "Live market observations and educational market updates",
+                            "Discussion around price action and market structure",
+                            "Learning-based trade case studies for educational purposes",
+                            "Insights on how professional traders analyze market movements",
+                            "Ongoing learning focused on discipline, risk awareness, and structured thinking",
+                          ].map((item) => (
+                            <li key={item} className="flex items-start gap-2">
+                              <span style={{ color: "oklch(0.72 0.17 65)" }}>
+                                ▸
+                              </span>
+                              {item}
+                            </li>
+                          ))}
+                        </ul>
+                        <p className="mb-2">
+                          The Inner Circle is designed to help traders
+                          continuously improve their market understanding in a
+                          structured environment.
+                        </p>
+                        <p
+                          className="text-sm px-3 py-2 rounded-lg"
+                          style={{
+                            background: "oklch(0.72 0.17 65 / 0.12)",
+                            color: "oklch(0.45 0.1 65)",
+                          }}
+                        >
+                          📌 All discussions are for educational purposes only
+                          and should not be considered financial or investment
+                          advice.
+                        </p>
+                      </>
+                    ),
+                  },
+                  {
+                    q: "Do I need trading experience to join this program?",
+                    a: "No. MasterTraderX is designed for both beginners and existing traders. You will learn the fundamental principles of price action, market structure, and risk management that apply to traders at all levels.",
+                  },
+                  {
+                    q: "Why do I need to open a FYERS account to unlock the full program?",
+                    a: (
+                      <>
+                        <p className="mb-3">
+                          MasterTraderX is an educational initiative supported
+                          by FYERS. Opening a free FYERS Trading & Demat account
+                          allows you to unlock:
+                        </p>
+                        <ul className="space-y-1 mb-3 ml-1">
+                          {[
+                            "The complete MasterTraderX training program",
+                            "Access to the MasterTraderX Inner Circle",
+                            "Structured trading education resources",
+                          ].map((item) => (
+                            <li key={item} className="flex items-start gap-2">
+                              <span style={{ color: "oklch(0.72 0.17 65)" }}>
+                                ▸
+                              </span>
+                              {item}
+                            </li>
+                          ))}
+                        </ul>
+                        <p>
+                          The account opening process takes less than 5 minutes
+                          using Aadhaar OTP.
+                        </p>
+                      </>
+                    ),
+                  },
+                  {
+                    q: "Can these concepts be used for intraday or swing trading?",
+                    a: (
+                      <>
+                        <p className="mb-3">
+                          Yes. The concepts taught in MasterTraderX can be
+                          applied to:
+                        </p>
+                        <ul className="space-y-1 mb-3 ml-1">
+                          {[
+                            "Intraday trading",
+                            "Swing trading",
+                            "Positional trading",
+                          ].map((item) => (
+                            <li key={item} className="flex items-start gap-2">
+                              <span style={{ color: "oklch(0.72 0.17 65)" }}>
+                                ▸
+                              </span>
+                              {item}
+                            </li>
+                          ))}
+                        </ul>
+                        <p>
+                          Because they are based on price behavior and market
+                          structure, not temporary strategies.
+                        </p>
+                      </>
+                    ),
+                  },
+                  {
+                    q: "How quickly can I start learning?",
+                    a: "Immediately. You can start Module 1 right now for free. After opening your FYERS account, the remaining modules unlock instantly, allowing you to complete the full program at your own pace.",
+                  },
+                ].map((faq, i) => (
+                  <AccordionItem
+                    key={faq.q}
+                    value={`faq-${i}`}
+                    className="rounded-xl overflow-hidden border-0"
+                    style={{
+                      background: "white",
+                      boxShadow: "0 2px 12px oklch(0.45 0.18 265 / 0.08)",
+                      border: "1px solid oklch(0.45 0.18 265 / 0.1)",
+                    }}
+                    data-ocid={`faq.item.${i + 1}`}
+                  >
+                    <AccordionTrigger
+                      className="px-6 py-5 text-left font-display font-bold text-base md:text-lg hover:no-underline [&[data-state=open]]:text-primary"
+                      style={{ color: "oklch(0.22 0.08 265)" }}
+                    >
+                      {faq.q}
+                    </AccordionTrigger>
+                    <AccordionContent
+                      className="px-6 pb-5 font-body text-sm md:text-base leading-relaxed"
+                      style={{ color: "oklch(0.38 0.06 265)" }}
+                    >
+                      {faq.a}
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
+            </div>
+          </div>
+        </section>
       </main>
 
       {/* ============================================================
@@ -2035,7 +2347,7 @@ export default function App() {
         data-ocid="whatsapp.button"
         style={{
           position: "fixed",
-          bottom: "24px",
+          bottom: "80px",
           right: "24px",
           zIndex: 9999,
           borderRadius: "9999px",
