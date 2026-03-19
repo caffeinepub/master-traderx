@@ -1201,6 +1201,40 @@ export default function App() {
                 </div>
               </div>
             </div>
+
+            {/* Kirti Agrawal — Featured Video */}
+            <div className="mt-12 max-w-3xl mx-auto">
+              <div
+                className="rounded-2xl overflow-hidden"
+                style={{
+                  border: "1px solid oklch(0.72 0.17 65 / 0.3)",
+                  boxShadow: "0 4px 32px oklch(0.1 0.05 265 / 0.4)",
+                }}
+              >
+                <div
+                  style={{
+                    position: "relative",
+                    paddingBottom: "56.25%",
+                    height: 0,
+                  }}
+                >
+                  <iframe
+                    src="https://www.youtube.com/embed/2_rFKK7zGOQ"
+                    title="Kirti Agrawal — About"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    style={{
+                      position: "absolute",
+                      top: 0,
+                      left: 0,
+                      width: "100%",
+                      height: "100%",
+                      border: "none",
+                    }}
+                  />
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
