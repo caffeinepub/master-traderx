@@ -77,6 +77,71 @@ function useCounter(target: number, suffix: string, inView: boolean) {
 }
 
 /* ================================================================
+   Countdown hook — resets at midnight each day
+   ================================================================ */
+function getSecondsUntilMidnight() {
+  const now = new Date();
+  const midnight = new Date();
+  midnight.setHours(24, 0, 0, 0);
+  return Math.floor((midnight.getTime() - now.getTime()) / 1000);
+}
+
+function useCountdown() {
+  const [remaining, setRemaining] = useState(getSecondsUntilMidnight);
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setRemaining(getSecondsUntilMidnight());
+    }, 1000);
+    return () => clearInterval(id);
+  }, []);
+
+  const h = String(Math.floor(remaining / 3600)).padStart(2, "0");
+  const m = String(Math.floor((remaining % 3600) / 60)).padStart(2, "0");
+  const s = String(remaining % 60).padStart(2, "0");
+  return { h, m, s };
+}
+
+/* ================================================================
+   CountdownTimer inline component
+   ================================================================ */
+function CountdownTimer() {
+  const { h, m, s } = useCountdown();
+  return (
+    <div className="flex flex-col items-center gap-2 mb-6">
+      <div
+        className="inline-flex flex-col items-center gap-1 px-6 py-3 rounded-2xl"
+        style={{
+          background:
+            "linear-gradient(135deg, oklch(0.72 0.17 65 / 0.22), oklch(0.65 0.16 55 / 0.18))",
+          border: "1.5px solid oklch(0.72 0.17 65 / 0.6)",
+          boxShadow: "0 0 20px oklch(0.72 0.17 65 / 0.25)",
+        }}
+      >
+        <span
+          className="text-xs font-body font-semibold uppercase tracking-widest"
+          style={{ color: "oklch(0.82 0.19 75)" }}
+        >
+          ⏰ Offer resets in
+        </span>
+        <span
+          className="font-mono font-black text-2xl md:text-3xl tracking-widest animate-pulse"
+          style={{ color: "oklch(0.88 0.20 80)" }}
+        >
+          {h}:{m}:{s}
+        </span>
+      </div>
+      <p
+        className="text-xs font-body font-semibold"
+        style={{ color: "oklch(0.82 0.19 75 / 0.85)" }}
+      >
+        🔥 Limited spots available today — offer resets at midnight
+      </p>
+    </div>
+  );
+}
+
+/* ================================================================
    Stat Card Component
    ================================================================ */
 interface StatCardProps {
@@ -2009,6 +2074,7 @@ export default function App() {
                   Opening your account takes less than 5 minutes using Aadhaar
                   OTP.
                 </p>
+                <CountdownTimer />
                 <a
                   href="https://signup.fyers.in/?utm_source=AP-Leads&utm_medium=AP0218"
                   target="_blank"
@@ -2321,6 +2387,7 @@ export default function App() {
                 Unlock the full program by opening your FREE FYERS trading
                 account.
               </p>
+              <CountdownTimer />
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                 <button
                   type="button"
