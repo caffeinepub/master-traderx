@@ -259,6 +259,211 @@ function VideoModal({
 }
 
 /* ================================================================
+   Form Gate Modal (Lead capture before Module 1 video)
+   ================================================================ */
+function FormGateModal({
+  open,
+  onClose,
+  onWatchNow,
+}: {
+  open: boolean;
+  onClose: () => void;
+  onWatchNow: () => void;
+}) {
+  return (
+    <Dialog open={open} onOpenChange={onClose}>
+      <DialogContent
+        className="max-w-2xl w-full p-0 overflow-hidden"
+        style={{
+          background: "oklch(0.10 0.05 265)",
+          border: "1px solid oklch(0.72 0.17 65 / 0.35)",
+          maxHeight: "90vh",
+          overflowY: "auto",
+        }}
+        data-ocid="formgate.modal"
+      >
+        {/* Header */}
+        <div
+          className="px-6 pt-6 pb-4 text-center"
+          style={{ borderBottom: "1px solid oklch(0.25 0.06 265)" }}
+        >
+          <div
+            className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-body font-semibold mb-3"
+            style={{
+              background: "oklch(0.72 0.17 65 / 0.15)",
+              border: "1px solid oklch(0.72 0.17 65 / 0.35)",
+              color: "oklch(0.82 0.19 75)",
+            }}
+          >
+            🔒 FREE ACCESS — 2-Hour Training
+          </div>
+          <h2
+            className="font-display text-xl md:text-2xl font-bold leading-tight mb-2"
+            style={{ color: "oklch(0.95 0.02 65)" }}
+          >
+            Unlock Your Free 2-Hour MasterTraderX Training +{" "}
+            <span style={{ color: "oklch(0.82 0.19 75)" }}>
+              Get 1 High-Probability Trade Setup
+            </span>
+          </h2>
+          <p
+            className="font-body text-sm md:text-base"
+            style={{ color: "oklch(0.72 0.04 265)" }}
+          >
+            Learn how to trade stocks &amp; options using price action, risk
+            management &amp; psychology — and receive a structured trade setup
+            directly on WhatsApp.
+          </p>
+        </div>
+
+        {/* Social Proof Line */}
+        <div className="text-center pt-4 px-6">
+          <p
+            className="font-body text-sm font-semibold"
+            style={{ color: "oklch(0.82 0.19 75)" }}
+          >
+            🔥 Already 2000+ traders have accessed this training
+          </p>
+        </div>
+
+        {/* Form Section */}
+        <div className="px-6 py-4">
+          <div
+            className="rounded-xl overflow-hidden"
+            style={{
+              border: "1px solid oklch(0.72 0.17 65 / 0.25)",
+              minHeight: "400px",
+            }}
+          >
+            <iframe
+              src="https://share.synamate.com/widget/form/FwbjdadvDiTlyKc2XAhV"
+              style={{
+                width: "100%",
+                height: "450px",
+                border: "none",
+                borderRadius: "12px",
+              }}
+              id="inline-FwbjdadvDiTlyKc2XAhV"
+              data-layout="{'id':'INLINE'}"
+              data-trigger-type="alwaysShow"
+              data-trigger-value=""
+              data-activation-type="alwaysActivated"
+              data-activation-value=""
+              data-deactivation-type="neverDeactivate"
+              data-deactivation-value=""
+              data-form-name="Flyers Submissions"
+              data-layout-iframe-id="inline-FwbjdadvDiTlyKc2XAhV"
+              data-form-id="FwbjdadvDiTlyKc2XAhV"
+              title="Flyers Submissions"
+            />
+          </div>
+        </div>
+
+        {/* Bonus Hook */}
+        <div className="px-6 pb-4">
+          <div
+            className="rounded-xl p-4"
+            style={{
+              background: "oklch(0.15 0.06 265)",
+              border: "1px solid oklch(0.72 0.17 65 / 0.3)",
+            }}
+          >
+            <p
+              className="font-display font-bold text-sm mb-2"
+              style={{ color: "oklch(0.82 0.19 75)" }}
+            >
+              🎁 Bonus for Registered Users:
+            </p>
+            <p
+              className="font-body text-sm mb-2"
+              style={{ color: "oklch(0.80 0.03 265)" }}
+            >
+              Get 1 High-Probability Trade Setup with:
+            </p>
+            <div className="space-y-1">
+              {["Entry", "Stop Loss", "Target"].map((item) => (
+                <div key={item} className="flex items-center gap-2">
+                  <span style={{ color: "oklch(0.72 0.20 145)" }}>✔</span>
+                  <span
+                    className="font-body text-sm"
+                    style={{ color: "oklch(0.90 0.02 65)" }}
+                  >
+                    {item}
+                  </span>
+                </div>
+              ))}
+            </div>
+            <p
+              className="font-body text-sm font-semibold mt-3"
+              style={{ color: "oklch(0.72 0.20 145)" }}
+            >
+              📲 Delivered instantly on WhatsApp
+            </p>
+          </div>
+        </div>
+
+        {/* Locked Video Preview */}
+        <div className="px-6 pb-4">
+          <button
+            type="button"
+            className="relative rounded-xl overflow-hidden cursor-pointer w-full block"
+            style={{ paddingBottom: "40%", minHeight: "120px" }}
+            onClick={onWatchNow}
+          >
+            {/* Blurred thumbnail background */}
+            <div
+              className="absolute inset-0 flex items-center justify-center"
+              style={{
+                background:
+                  "linear-gradient(135deg, oklch(0.15 0.08 265), oklch(0.10 0.05 245))",
+                backdropFilter: "blur(2px)",
+              }}
+            >
+              <div className="text-center px-4">
+                <div
+                  className="text-3xl mb-2"
+                  style={{
+                    filter: "blur(0px)",
+                    color: "oklch(0.82 0.19 75)",
+                  }}
+                >
+                  🔐
+                </div>
+                <p
+                  className="font-display font-bold text-sm md:text-base"
+                  style={{ color: "oklch(0.95 0.02 65)" }}
+                >
+                  This Training is Locked 🔒
+                </p>
+                <p
+                  className="font-body text-xs mt-1"
+                  style={{ color: "oklch(0.65 0.04 265)" }}
+                >
+                  Enter your details above to unlock full access + receive your
+                  trade setup
+                </p>
+              </div>
+            </div>
+          </button>
+        </div>
+
+        {/* CTA Button */}
+        <div className="px-6 pb-6">
+          <button
+            type="button"
+            onClick={onWatchNow}
+            className="w-full btn-gold rounded-xl py-4 font-display font-bold text-base md:text-lg transition-all hover:scale-[1.02] active:scale-[0.98]"
+            data-ocid="formgate.watch_button"
+          >
+            👉 Get Instant Access + Watch Training 🔥
+          </button>
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
+/* ================================================================
    Company Logo Component
    ================================================================ */
 function CompanyLogo({ src, alt }: { src: string; alt: string }) {
@@ -290,6 +495,7 @@ export default function App() {
   useScrollReveal();
   const [modalOpen, setModalOpen] = useState(false);
   const [videoModalOpen, setVideoModalOpen] = useState(false);
+  const [formGateOpen, setFormGateOpen] = useState(false);
 
   // Stats section visibility
   const statsRef = useRef<HTMLDivElement>(null);
@@ -309,6 +515,7 @@ export default function App() {
   }, []);
 
   const openModal = () => setModalOpen(true);
+  const openFormGate = () => setFormGateOpen(true);
   const openVideoModal = () => setVideoModalOpen(true);
 
   /* ----------------------------------------------------------------
@@ -463,6 +670,14 @@ export default function App() {
         open={videoModalOpen}
         onClose={() => setVideoModalOpen(false)}
       />
+      <FormGateModal
+        open={formGateOpen}
+        onClose={() => setFormGateOpen(false)}
+        onWatchNow={() => {
+          setFormGateOpen(false);
+          setVideoModalOpen(true);
+        }}
+      />
 
       {/* ============================================================
           TOP ANNOUNCEMENT BANNER
@@ -554,7 +769,7 @@ export default function App() {
             </nav>
             <button
               type="button"
-              onClick={openVideoModal}
+              onClick={openFormGate}
               className="btn-gold rounded-lg px-5 py-2.5 text-sm font-display font-bold"
               data-ocid="header.primary_button"
             >
@@ -565,7 +780,7 @@ export default function App() {
           {/* Mobile CTA */}
           <button
             type="button"
-            onClick={openVideoModal}
+            onClick={openFormGate}
             className="md:hidden btn-gold rounded-lg px-4 py-2 text-sm font-display font-bold"
             data-ocid="header.mobile.primary_button"
           >
@@ -680,9 +895,9 @@ export default function App() {
                 </div>
               </div>
 
-              {/* YouTube Video Embed */}
+              {/* YouTube Video Embed with Lock Overlay */}
               <div
-                className="fade-up delay-3 w-full max-w-3xl mx-auto mb-8 rounded-2xl overflow-hidden shadow-2xl"
+                className="fade-up delay-3 w-full max-w-3xl mx-auto mb-8 rounded-2xl overflow-hidden shadow-2xl relative"
                 style={{ border: "1px solid oklch(0.72 0.17 65 / 0.4)" }}
               >
                 <div
@@ -697,6 +912,36 @@ export default function App() {
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
                   />
+                  {/* Lock Overlay */}
+                  <button
+                    type="button"
+                    className="absolute inset-0 flex flex-col items-center justify-center gap-4 cursor-pointer w-full border-0"
+                    style={{
+                      background:
+                        "linear-gradient(to bottom, oklch(0.1 0.05 245 / 0.7), oklch(0.08 0.04 245 / 0.85))",
+                      backdropFilter: "blur(4px)",
+                    }}
+                    onClick={openFormGate}
+                  >
+                    <div
+                      className="rounded-full p-4 mb-1"
+                      style={{
+                        background: "oklch(0.72 0.17 65 / 0.2)",
+                        border: "2px solid oklch(0.72 0.17 65 / 0.6)",
+                      }}
+                    >
+                      <Lock
+                        size={36}
+                        style={{ color: "oklch(0.85 0.17 75)" }}
+                      />
+                    </div>
+                    <p className="text-white font-display font-bold text-base md:text-lg text-center px-4">
+                      This Training is Locked 🔒
+                    </p>
+                    <span className="btn-gold rounded-lg font-display font-bold inline-flex items-center gap-2 px-6 py-3 text-sm md:text-base">
+                      <Play size={16} />▶ Unlock &amp; Watch Free
+                    </span>
+                  </button>
                 </div>
               </div>
 
@@ -704,7 +949,7 @@ export default function App() {
               <div className="fade-up delay-4 flex flex-col sm:flex-row gap-4 justify-center items-center">
                 <button
                   type="button"
-                  onClick={openVideoModal}
+                  onClick={openFormGate}
                   className="btn-gold rounded-lg font-display font-bold inline-flex items-center gap-2 px-8 py-4 text-base"
                   data-ocid="hero.primary_button"
                 >
@@ -885,7 +1130,7 @@ export default function App() {
 
                 <button
                   type="button"
-                  onClick={openVideoModal}
+                  onClick={openFormGate}
                   className="btn-gold rounded-xl font-display font-bold inline-flex items-center gap-2 px-8 py-4 text-base w-full justify-center"
                   data-ocid="free_lesson.primary_button"
                 >
@@ -1299,7 +1544,7 @@ export default function App() {
                 </p>
                 <button
                   type="button"
-                  onClick={openVideoModal}
+                  onClick={openFormGate}
                   className="btn-gold rounded-lg font-display font-bold inline-flex items-center gap-2 px-7 py-3.5 text-base"
                   data-ocid="learn.primary_button"
                 >
@@ -1379,7 +1624,7 @@ export default function App() {
             <div className="fade-up text-center">
               <button
                 type="button"
-                onClick={openVideoModal}
+                onClick={openFormGate}
                 className="btn-gold rounded-lg font-display font-bold inline-flex items-center gap-2 px-7 py-3.5 text-base"
                 data-ocid="pillars.primary_button"
               >
@@ -1479,7 +1724,7 @@ export default function App() {
 
                   <button
                     type="button"
-                    onClick={openVideoModal}
+                    onClick={openFormGate}
                     className="btn-gold rounded-lg font-display font-bold inline-flex items-center gap-2 px-7 py-3.5 text-base"
                     data-ocid="pat.primary_button"
                   >
@@ -1950,7 +2195,7 @@ export default function App() {
             <div className="fade-up text-center">
               <button
                 type="button"
-                onClick={openVideoModal}
+                onClick={openFormGate}
                 className="btn-gold rounded-lg font-display font-bold inline-flex items-center gap-2 px-10 py-5 text-lg"
                 data-ocid="testimonials.primary_button"
               >
@@ -2022,7 +2267,7 @@ export default function App() {
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                 <button
                   type="button"
-                  onClick={openVideoModal}
+                  onClick={openFormGate}
                   className="btn-gold rounded-lg font-display font-bold inline-flex items-center gap-2 px-10 py-5 text-lg animate-pulse-gold"
                   data-ocid="cta.primary_button"
                 >
