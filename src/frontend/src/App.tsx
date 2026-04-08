@@ -264,11 +264,9 @@ function VideoModal({
 function FormGateModal({
   open,
   onClose,
-  onWatchNow,
 }: {
   open: boolean;
   onClose: () => void;
-  onWatchNow: () => void;
 }) {
   return (
     <Dialog open={open} onOpenChange={onClose}>
@@ -404,11 +402,9 @@ function FormGateModal({
 
         {/* Locked Video Preview */}
         <div className="px-6 pb-4">
-          <button
-            type="button"
-            className="relative rounded-xl overflow-hidden cursor-pointer w-full block"
+          <div
+            className="relative rounded-xl overflow-hidden w-full"
             style={{ paddingBottom: "40%", minHeight: "120px" }}
-            onClick={onWatchNow}
           >
             {/* Blurred thumbnail background */}
             <div
@@ -444,20 +440,11 @@ function FormGateModal({
                 </p>
               </div>
             </div>
-          </button>
+          </div>
         </div>
 
-        {/* CTA Button */}
-        <div className="px-6 pb-6">
-          <button
-            type="button"
-            onClick={onWatchNow}
-            className="w-full btn-gold rounded-xl py-4 font-display font-bold text-base md:text-lg transition-all hover:scale-[1.02] active:scale-[0.98]"
-            data-ocid="formgate.watch_button"
-          >
-            👉 Get Instant Access + Watch Training 🔥
-          </button>
-        </div>
+        {/* Spacer after bonus section */}
+        <div className="pb-4" />
       </DialogContent>
     </Dialog>
   );
@@ -516,7 +503,6 @@ export default function App() {
 
   const openModal = () => setModalOpen(true);
   const openFormGate = () => setFormGateOpen(true);
-  const openVideoModal = () => setVideoModalOpen(true);
 
   /* ----------------------------------------------------------------
      Testimonial data
@@ -673,10 +659,6 @@ export default function App() {
       <FormGateModal
         open={formGateOpen}
         onClose={() => setFormGateOpen(false)}
-        onWatchNow={() => {
-          setFormGateOpen(false);
-          setVideoModalOpen(true);
-        }}
       />
 
       {/* ============================================================
@@ -973,6 +955,29 @@ export default function App() {
             </div>
           </div>
         </section>
+
+        {/* ============================================================
+            WHATSAPP CTA — After Hero
+            ============================================================ */}
+        <div className="py-6 bg-white text-center">
+          <a
+            href="https://wa.me/919171166445"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-7 py-3 rounded-full font-display font-bold text-white text-base transition-all duration-200 hover:scale-105 active:scale-95 shadow-md"
+            style={{ background: "oklch(0.55 0.20 145)" }}
+            data-ocid="whatsapp.hero_cta"
+          >
+            💬 Chat on WhatsApp
+          </a>
+          <p
+            className="mt-2 text-sm font-body"
+            style={{ color: "oklch(0.55 0.04 265)" }}
+          >
+            Join 2000+ traders already learning with us — get instant answers on
+            WhatsApp.
+          </p>
+        </div>
 
         {/* ============================================================
             STATS BAR — White background
@@ -1848,7 +1853,7 @@ export default function App() {
                   </div>
                   <button
                     type="button"
-                    onClick={mod.free ? openVideoModal : openModal}
+                    onClick={mod.free ? openFormGate : openModal}
                     className="btn-gold-outline rounded-lg px-4 py-2 text-sm font-display font-semibold shrink-0 whitespace-nowrap flex items-center gap-1.5"
                     style={
                       mod.free
@@ -2205,6 +2210,58 @@ export default function App() {
             </div>
           </div>
         </section>
+
+        {/* ============================================================
+            WHATSAPP CTA — After Testimonials
+            ============================================================ */}
+        <div
+          className="py-8 text-center"
+          style={{ background: "oklch(0.97 0.01 260)" }}
+        >
+          <a
+            href="https://wa.me/919171166445"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-7 py-3 rounded-full font-display font-bold text-white text-base transition-all duration-200 hover:scale-105 active:scale-95 shadow-md"
+            style={{ background: "oklch(0.55 0.20 145)" }}
+            data-ocid="whatsapp.testimonials_cta"
+          >
+            💬 Chat on WhatsApp
+          </a>
+          <p
+            className="mt-2 text-sm font-body"
+            style={{ color: "oklch(0.55 0.04 265)" }}
+          >
+            Have questions about the program? Our team replies within minutes on
+            WhatsApp.
+          </p>
+        </div>
+
+        {/* ============================================================
+            WHATSAPP CTA — Before Final CTA
+            ============================================================ */}
+        <div
+          className="py-8 text-center"
+          style={{ background: "oklch(0.18 0.07 265)" }}
+        >
+          <a
+            href="https://wa.me/919171166445"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-7 py-3 rounded-full font-display font-bold text-white text-base transition-all duration-200 hover:scale-105 active:scale-95 shadow-md"
+            style={{ background: "oklch(0.55 0.20 145)" }}
+            data-ocid="whatsapp.prefinalcta"
+          >
+            💬 Chat on WhatsApp
+          </a>
+          <p
+            className="mt-2 text-sm font-body"
+            style={{ color: "oklch(0.65 0.04 265)" }}
+          >
+            Ready to start? Chat with us on WhatsApp and we'll guide you step by
+            step.
+          </p>
+        </div>
 
         {/* ============================================================
             FINAL CTA — Deep Blue with gold glow
